@@ -1,7 +1,13 @@
 package com.khynsoft.ble;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.bluetooth.BluetoothDevice;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -13,8 +19,14 @@ import com.khynsoft.ble.nrf.ScanCallback;
 import com.khynsoft.ble.nrf.ScanFilter;
 import com.khynsoft.ble.nrf.ScanResult;
 import com.khynsoft.ble.nrf.ScanSettings;
+import com.khynsoft.ble.trilateration.NonLinearLeastSquaresSolver;
+import com.khynsoft.ble.trilateration.TrilaterationFunction;
+
+import org.apache.commons.math3.fitting.leastsquares.LeastSquaresOptimizer;
+import org.apache.commons.math3.fitting.leastsquares.LevenbergMarquardtOptimizer;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class PluginActivity extends UnityPlayerActivity {
@@ -28,19 +40,22 @@ public class PluginActivity extends UnityPlayerActivity {
     ScanCallback scanCallback = new ScanCallback() {
         @Override
         public void onScanResult(int callbackType, @NonNull ScanResult result) {
-            switch (result.getDevice().getName()) {
-                case "KunwareBLE1":
-                    rssi1 = result.getRssi();
-                    break;
-                case "KunwareBLE2":
-                    rssi2 = result.getRssi();
-                    break;
-                case "KunwareBLE3":
-                    rssi3 = result.getRssi();
-                    break;
-                case "KunwareBLE4":
-                    rssi4 = result.getRssi();
-                    break;
+            BluetoothDevice device = result.getDevice();
+            if (device.getName() != null || !device.getName().isEmpty()) {
+                switch (device.getName()) {
+                    case "KunwareBLE1":
+                        rssi1 = result.getRssi();
+                        break;
+                    case "KunwareBLE2":
+                        rssi2 = result.getRssi();
+                        break;
+                    case "KunwareBLE3":
+                        rssi3 = result.getRssi();
+                        break;
+                    case "KunwareBLE4":
+                        rssi4 = result.getRssi();
+                        break;
+                }
             }
         }
 
@@ -94,7 +109,6 @@ public class PluginActivity extends UnityPlayerActivity {
                     Manifest.permission.BLUETOOTH
             }, 0);
         }
-
         try {
             scanner.startScan(filters, settings, scanCallback);
         } catch (Exception e) {
@@ -118,6 +132,39 @@ public class PluginActivity extends UnityPlayerActivity {
         return rssi4;
     }
 
+    public double getDistance(int rssi, int mPow, int n) {
+        return Math.pow(10, (mPow - rssi) / (10.0 * n));
+    }
+
+    public double getDistance1() {
+        return getDistance(rssi1, -59, 2);
+    }
+    public double getDistance2() {
+        return getDistance(rssi2, -59, 2);
+    }
+    public double getDistance3() {
+        return getDistance(rssi3, -59, 2);
+    }
+    public double getDistance4() {
+        return getDistance(rssi4, -59, 2);
+    }
+
+    public double[] getUserPosition() {
+        double[][] positions = new double[][] { { 2.125, 0.046228 }, { 0, 1.642872 }, { 0, -1.657096 }, { -2.124334, 0 } };
+        double[] distances = new double[] {
+                getDistance1(),
+                getDistance2(),
+                getDistance3(),
+                getDistance4(),
+        };
+        NonLinearLeastSquaresSolver solver = new NonLinearLeastSquaresSolver(new TrilaterationFunction(positions, distances), new LevenbergMarquardtOptimizer());
+        LeastSquaresOptimizer.Optimum optimum = solver.solve();
+
+        // error and geometry information; may throw SingularMatrixException depending the threshold argument provided
+//        RealVector standardDeviation = optimum.getSigma(0);
+//        RealMatrix covarianceMatrix = optimum.getCovariances(0);
+        return optimum.getPoint().toArray();
+    }
 
     @Override
     protected void onDestroy() {

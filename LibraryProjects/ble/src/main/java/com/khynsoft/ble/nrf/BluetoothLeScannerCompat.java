@@ -443,7 +443,7 @@ public abstract class BluetoothLeScannerCompat {
 
 		/* package */ void handleScanResult(final int callbackType,
 											@NonNull final ScanResult scanResult) {
-			if (scanningStopped || !filters.isEmpty() && !matches(scanResult))
+			if ((scanningStopped || !filters.isEmpty()) && !matches(scanResult))
 				return;
 
 			final String deviceAddress = scanResult.getDevice().getAddress();

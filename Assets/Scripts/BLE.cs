@@ -21,6 +21,8 @@ public class BLE : MonoBehaviour
 
     [SerializeField] TMPro.TMP_InputField logArea;
 
+    [SerializeField] GameObject userObj;
+
     AndroidJavaObject _pluginActivity;
     // Start is called before the first frame update
     void Start()
@@ -33,6 +35,7 @@ public class BLE : MonoBehaviour
     {
         RefreshRssi();
         CalcDistances();
+        SetUserPosition();
     }
 
     public void RefreshRssi()
@@ -53,21 +56,11 @@ public class BLE : MonoBehaviour
 
     public void CalcDistances()
     {
-        int measuredPower = -59;
-        float n = 0f;
 
-        if (isValidNum(nFactor.text))
-        {
-            n = float.Parse(nFactor.text);
-        } else
-        {
-            n = 2.5f;
-        }
-        
-        dist1.text = string.Format("{0:0.00} m", Mathf.Pow(10, (measuredPower - _pluginActivity.Call<int>("getRssi1"))/(10*n)));
-        dist2.text = string.Format("{0:0.00} m", Mathf.Pow(10, (measuredPower - _pluginActivity.Call<int>("getRssi2"))/(10*n)));
-        dist3.text = string.Format("{0:0.00} m", Mathf.Pow(10, (measuredPower - _pluginActivity.Call<int>("getRssi3"))/(10*n)));
-        dist4.text = string.Format("{0:0.00} m", Mathf.Pow(10, (measuredPower - _pluginActivity.Call<int>("getRssi4"))/(10*n)));
+        dist1.text = string.Format("{0:0.00} m", _pluginActivity.Call<double>("getDistance1"));
+        dist2.text = string.Format("{0:0.00} m", _pluginActivity.Call<double>("getDistance2"));
+        dist3.text = string.Format("{0:0.00} m", _pluginActivity.Call<double>("getDistance3"));
+        dist4.text = string.Format("{0:0.00} m", _pluginActivity.Call<double>("getDistance4"));
     }
 
     double time = 10;
@@ -110,4 +103,29 @@ public class BLE : MonoBehaviour
         }
         
     }
+
+    void SetUserPosition()
+    {
+        /*
+        double[,] pos = new double[4, 2];
+        pos[0, 1] = beacon1.transform.position.x;
+        pos[0, 2] = beacon1.transform.position.z;
+        pos[1, 1] = beacon2.transform.position.x;
+        pos[1, 2] = beacon2.transform.position.z;
+        pos[2, 1] = beacon3.transform.position.x;
+        pos[2, 2] = beacon3.transform.position.z;
+        pos[3, 1] = beacon4.transform.position.x;
+        pos[3, 2] = beacon4.transform.position.z;
+        */
+        double[] uLocation;
+        uLocation = _pluginActivity.Call<double[]>("getUserPosition");
+        userObj.transform.position = new Vector3((float)uLocation[0], 2.1f, (float)uLocation[1]);
+        logArea.text = "Location: " + "\n";
+        foreach (double i in uLocation)
+        {
+            logArea.text += "Location: n: " + (float) i + "\n";
+        }
+
+    }
+
 }
