@@ -106,17 +106,6 @@ public class BLE : MonoBehaviour
 
     void SetUserPosition()
     {
-        /*
-        double[,] pos = new double[4, 2];
-        pos[0, 1] = beacon1.transform.position.x;
-        pos[0, 2] = beacon1.transform.position.z;
-        pos[1, 1] = beacon2.transform.position.x;
-        pos[1, 2] = beacon2.transform.position.z;
-        pos[2, 1] = beacon3.transform.position.x;
-        pos[2, 2] = beacon3.transform.position.z;
-        pos[3, 1] = beacon4.transform.position.x;
-        pos[3, 2] = beacon4.transform.position.z;
-        */
         double[] uLocation;
         uLocation = _pluginActivity.Call<double[]>("getUserPosition");
         userObj.transform.position = new Vector3((float)uLocation[0], 2.1f, (float)uLocation[1]);

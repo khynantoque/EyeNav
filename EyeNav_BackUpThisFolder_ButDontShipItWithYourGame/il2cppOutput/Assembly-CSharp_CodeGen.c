@@ -26,35 +26,23 @@ extern void BLE_CalcDistances_mBA14191904BF5C49D08D640F3182EB1B281A60E3 (void);
 extern void BLE_Observe_m959BEDF2DBD079BBE57A9C48EC5C05C7DEBB8DE0 (void);
 // 0x00000007 System.Collections.IEnumerator BLE::GetRssiData()
 extern void BLE_GetRssiData_mA5CFC95E8033F8028F4C5403BB8E2BCA55BF5918 (void);
-// 0x00000008 System.Collections.IEnumerator BLE::SetUserPosition()
-extern void BLE_SetUserPosition_m67AA87DF90822D77DF2F70E81086D52C066F0575 (void);
+// 0x00000008 System.Void BLE::SetUserPosition()
+extern void BLE_SetUserPosition_m4437B1B3928A86DD8603AF6547940819898F73CA (void);
 // 0x00000009 System.Void BLE::.ctor()
 extern void BLE__ctor_mD22781F9BDB6021503A63E85BCD1BDA4BFDC7DDE (void);
-// 0x0000000A System.Void BLE/<GetRssiData>d__25::.ctor(System.Int32)
-extern void U3CGetRssiDataU3Ed__25__ctor_m8CE7DDBF9FFACED125ED3B08201494888A4C4D48 (void);
-// 0x0000000B System.Void BLE/<GetRssiData>d__25::System.IDisposable.Dispose()
-extern void U3CGetRssiDataU3Ed__25_System_IDisposable_Dispose_m2C436E19504D8CE9CBC00A16E84DE3A4F0169387 (void);
-// 0x0000000C System.Boolean BLE/<GetRssiData>d__25::MoveNext()
-extern void U3CGetRssiDataU3Ed__25_MoveNext_mD4001A5D998EFA75C60ED4ECDD493C891455F2C3 (void);
-// 0x0000000D System.Object BLE/<GetRssiData>d__25::System.Collections.Generic.IEnumerator<System.Object>.get_Current()
-extern void U3CGetRssiDataU3Ed__25_System_Collections_Generic_IEnumeratorU3CSystem_ObjectU3E_get_Current_m6862004EB007FD55A03882FC5F9BB5DCA0623CB6 (void);
-// 0x0000000E System.Void BLE/<GetRssiData>d__25::System.Collections.IEnumerator.Reset()
-extern void U3CGetRssiDataU3Ed__25_System_Collections_IEnumerator_Reset_mAEA8DFA974F4B873826553EA4D3A4762C1FC6875 (void);
-// 0x0000000F System.Object BLE/<GetRssiData>d__25::System.Collections.IEnumerator.get_Current()
-extern void U3CGetRssiDataU3Ed__25_System_Collections_IEnumerator_get_Current_mAE794B9303F11AE125CC283E07950118EE9B9011 (void);
-// 0x00000010 System.Void BLE/<SetUserPosition>d__26::.ctor(System.Int32)
-extern void U3CSetUserPositionU3Ed__26__ctor_mFCB7CA49EA8D440CF2DB5E4DFCD88AC96968DEFB (void);
-// 0x00000011 System.Void BLE/<SetUserPosition>d__26::System.IDisposable.Dispose()
-extern void U3CSetUserPositionU3Ed__26_System_IDisposable_Dispose_mF121D0CB5FA58FC2504B07E0C6DBC3DF05B33D3E (void);
-// 0x00000012 System.Boolean BLE/<SetUserPosition>d__26::MoveNext()
-extern void U3CSetUserPositionU3Ed__26_MoveNext_m35A72DA03131A219B34C33F25E838B9986849A0F (void);
-// 0x00000013 System.Object BLE/<SetUserPosition>d__26::System.Collections.Generic.IEnumerator<System.Object>.get_Current()
-extern void U3CSetUserPositionU3Ed__26_System_Collections_Generic_IEnumeratorU3CSystem_ObjectU3E_get_Current_m0B927CC7AEEC8EAE3DF8F0F0198375013C5C5273 (void);
-// 0x00000014 System.Void BLE/<SetUserPosition>d__26::System.Collections.IEnumerator.Reset()
-extern void U3CSetUserPositionU3Ed__26_System_Collections_IEnumerator_Reset_m524AF816CC3855494B5D8DD9FFD449A02F41E0C8 (void);
-// 0x00000015 System.Object BLE/<SetUserPosition>d__26::System.Collections.IEnumerator.get_Current()
-extern void U3CSetUserPositionU3Ed__26_System_Collections_IEnumerator_get_Current_m814754B2086B14AFF0B6D0B906C11B88DECB9FD9 (void);
-static Il2CppMethodPointer s_methodPointers[21] = 
+// 0x0000000A System.Void BLE/<GetRssiData>d__21::.ctor(System.Int32)
+extern void U3CGetRssiDataU3Ed__21__ctor_mCC115741832EF44EEE48E88897671EE07A5274B3 (void);
+// 0x0000000B System.Void BLE/<GetRssiData>d__21::System.IDisposable.Dispose()
+extern void U3CGetRssiDataU3Ed__21_System_IDisposable_Dispose_m60A3FFE45AF8F2ABF4D7B594848E27CB09262429 (void);
+// 0x0000000C System.Boolean BLE/<GetRssiData>d__21::MoveNext()
+extern void U3CGetRssiDataU3Ed__21_MoveNext_m0470C8599B039C6FDCBA643764AC51DAD0C772BC (void);
+// 0x0000000D System.Object BLE/<GetRssiData>d__21::System.Collections.Generic.IEnumerator<System.Object>.get_Current()
+extern void U3CGetRssiDataU3Ed__21_System_Collections_Generic_IEnumeratorU3CSystem_ObjectU3E_get_Current_m2846E85FE743E7A388BBADDD6813B76FACFDEF3A (void);
+// 0x0000000E System.Void BLE/<GetRssiData>d__21::System.Collections.IEnumerator.Reset()
+extern void U3CGetRssiDataU3Ed__21_System_Collections_IEnumerator_Reset_m7B1E8D252439394D3186410A0AF4BDD70B172F88 (void);
+// 0x0000000F System.Object BLE/<GetRssiData>d__21::System.Collections.IEnumerator.get_Current()
+extern void U3CGetRssiDataU3Ed__21_System_Collections_IEnumerator_get_Current_mD0150CF337125241EAD15BDE2196EF4421F018F5 (void);
+static Il2CppMethodPointer s_methodPointers[15] = 
 {
 	BLE_Start_mE3B9DA59A6C12CDB0A7203E2802D97820949FB1B,
 	BLE_Update_m9B1C8E67505927D8C1868F4856DB161D4826EAFF,
@@ -63,22 +51,16 @@ static Il2CppMethodPointer s_methodPointers[21] =
 	BLE_CalcDistances_mBA14191904BF5C49D08D640F3182EB1B281A60E3,
 	BLE_Observe_m959BEDF2DBD079BBE57A9C48EC5C05C7DEBB8DE0,
 	BLE_GetRssiData_mA5CFC95E8033F8028F4C5403BB8E2BCA55BF5918,
-	BLE_SetUserPosition_m67AA87DF90822D77DF2F70E81086D52C066F0575,
+	BLE_SetUserPosition_m4437B1B3928A86DD8603AF6547940819898F73CA,
 	BLE__ctor_mD22781F9BDB6021503A63E85BCD1BDA4BFDC7DDE,
-	U3CGetRssiDataU3Ed__25__ctor_m8CE7DDBF9FFACED125ED3B08201494888A4C4D48,
-	U3CGetRssiDataU3Ed__25_System_IDisposable_Dispose_m2C436E19504D8CE9CBC00A16E84DE3A4F0169387,
-	U3CGetRssiDataU3Ed__25_MoveNext_mD4001A5D998EFA75C60ED4ECDD493C891455F2C3,
-	U3CGetRssiDataU3Ed__25_System_Collections_Generic_IEnumeratorU3CSystem_ObjectU3E_get_Current_m6862004EB007FD55A03882FC5F9BB5DCA0623CB6,
-	U3CGetRssiDataU3Ed__25_System_Collections_IEnumerator_Reset_mAEA8DFA974F4B873826553EA4D3A4762C1FC6875,
-	U3CGetRssiDataU3Ed__25_System_Collections_IEnumerator_get_Current_mAE794B9303F11AE125CC283E07950118EE9B9011,
-	U3CSetUserPositionU3Ed__26__ctor_mFCB7CA49EA8D440CF2DB5E4DFCD88AC96968DEFB,
-	U3CSetUserPositionU3Ed__26_System_IDisposable_Dispose_mF121D0CB5FA58FC2504B07E0C6DBC3DF05B33D3E,
-	U3CSetUserPositionU3Ed__26_MoveNext_m35A72DA03131A219B34C33F25E838B9986849A0F,
-	U3CSetUserPositionU3Ed__26_System_Collections_Generic_IEnumeratorU3CSystem_ObjectU3E_get_Current_m0B927CC7AEEC8EAE3DF8F0F0198375013C5C5273,
-	U3CSetUserPositionU3Ed__26_System_Collections_IEnumerator_Reset_m524AF816CC3855494B5D8DD9FFD449A02F41E0C8,
-	U3CSetUserPositionU3Ed__26_System_Collections_IEnumerator_get_Current_m814754B2086B14AFF0B6D0B906C11B88DECB9FD9,
+	U3CGetRssiDataU3Ed__21__ctor_mCC115741832EF44EEE48E88897671EE07A5274B3,
+	U3CGetRssiDataU3Ed__21_System_IDisposable_Dispose_m60A3FFE45AF8F2ABF4D7B594848E27CB09262429,
+	U3CGetRssiDataU3Ed__21_MoveNext_m0470C8599B039C6FDCBA643764AC51DAD0C772BC,
+	U3CGetRssiDataU3Ed__21_System_Collections_Generic_IEnumeratorU3CSystem_ObjectU3E_get_Current_m2846E85FE743E7A388BBADDD6813B76FACFDEF3A,
+	U3CGetRssiDataU3Ed__21_System_Collections_IEnumerator_Reset_m7B1E8D252439394D3186410A0AF4BDD70B172F88,
+	U3CGetRssiDataU3Ed__21_System_Collections_IEnumerator_get_Current_mD0150CF337125241EAD15BDE2196EF4421F018F5,
 };
-static const int32_t s_InvokerIndices[21] = 
+static const int32_t s_InvokerIndices[15] = 
 {
 	5062,
 	5062,
@@ -87,14 +69,8 @@ static const int32_t s_InvokerIndices[21] =
 	5062,
 	5062,
 	4956,
-	4956,
 	5062,
-	3990,
 	5062,
-	4884,
-	4956,
-	5062,
-	4956,
 	3990,
 	5062,
 	4884,
@@ -106,7 +82,7 @@ IL2CPP_EXTERN_C const Il2CppCodeGenModule g_AssemblyU2DCSharp_CodeGenModule;
 const Il2CppCodeGenModule g_AssemblyU2DCSharp_CodeGenModule = 
 {
 	"Assembly-CSharp.dll",
-	21,
+	15,
 	s_methodPointers,
 	0,
 	NULL,

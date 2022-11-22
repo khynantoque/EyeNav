@@ -1,24 +1,14 @@
 package com.khynsoft.ble;
 
 import android.Manifest;
-import android.app.AlertDialog;
 import android.bluetooth.BluetoothDevice;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.khynsoft.ble.nrf.BluetoothLeScannerCompat;
-import com.khynsoft.ble.nrf.ScanCallback;
-import com.khynsoft.ble.nrf.ScanFilter;
-import com.khynsoft.ble.nrf.ScanResult;
-import com.khynsoft.ble.nrf.ScanSettings;
 import com.khynsoft.ble.trilateration.NonLinearLeastSquaresSolver;
 import com.khynsoft.ble.trilateration.TrilaterationFunction;
 
@@ -26,8 +16,13 @@ import org.apache.commons.math3.fitting.leastsquares.LeastSquaresOptimizer;
 import org.apache.commons.math3.fitting.leastsquares.LevenbergMarquardtOptimizer;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+
+import no.nordicsemi.android.support.v18.scanner.BluetoothLeScannerCompat;
+import no.nordicsemi.android.support.v18.scanner.ScanCallback;
+import no.nordicsemi.android.support.v18.scanner.ScanFilter;
+import no.nordicsemi.android.support.v18.scanner.ScanResult;
+import no.nordicsemi.android.support.v18.scanner.ScanSettings;
 
 public class PluginActivity extends UnityPlayerActivity {
 
@@ -41,24 +36,22 @@ public class PluginActivity extends UnityPlayerActivity {
         @Override
         public void onScanResult(int callbackType, @NonNull ScanResult result) {
             BluetoothDevice device = result.getDevice();
-            if (device.getName() != null || !device.getName().isEmpty()) {
-                switch (device.getName()) {
-                    case "KunwareBLE1":
-                        rssi1 = result.getRssi();
-                        break;
-                    case "KunwareBLE2":
-                        rssi2 = result.getRssi();
-                        break;
-                    case "KunwareBLE3":
-                        rssi3 = result.getRssi();
-                        break;
-                    case "KunwareBLE4":
-                        rssi4 = result.getRssi();
-                        break;
-                }
+            switch (device.getName()) {
+                case "KunwareBLE1":
+                    rssi1 = result.getRssi();
+                    break;
+                case "KunwareBLE2":
+                    rssi2 = result.getRssi();
+                    break;
+                case "KunwareBLE3":
+                    rssi3 = result.getRssi();
+                    break;
+                case "KunwareBLE4":
+                    rssi4 = result.getRssi();
+                    break;
             }
         }
-
+        
         @Override
         public void onScanFailed(int errorCode) {
             super.onScanFailed(errorCode);
@@ -68,9 +61,14 @@ public class PluginActivity extends UnityPlayerActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Toast.makeText(this, "by Khyn Antoque", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Powered by Cor Jesu College", Toast.LENGTH_SHORT).show();
         scanner = BluetoothLeScannerCompat.getScanner();
 
+        //dependency
+        startNordicScan();
+    }
+
+    public void startNordicScan() {
         ScanSettings settings = new ScanSettings.Builder()
                 .setLegacy(false)
                 .setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY)
@@ -82,33 +80,7 @@ public class PluginActivity extends UnityPlayerActivity {
         filters.add(new ScanFilter.Builder().build());
         Toast.makeText(this, "Scanning...", Toast.LENGTH_SHORT).show();
 
-        String locationPermission = Build.VERSION.SDK_INT >= 29 ? Manifest.permission.ACCESS_FINE_LOCATION : Manifest.permission.ACCESS_COARSE_LOCATION;
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            this.requestPermissions(
-                    new String[]{
-                            locationPermission,
-                            Manifest.permission.BLUETOOTH_ADMIN
-                    }, 0);
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            this.requestPermissions(
-                    new String[]{
-                            Manifest.permission.BLUETOOTH_SCAN
-                    }, 0);
-        }
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            if (PluginActivity.this.checkSelfPermission(Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
-                PluginActivity.this.requestPermissions(new String[]{
-                        Manifest.permission.BLUETOOTH_CONNECT
-                }, 0);
-            }
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            PluginActivity.this.requestPermissions(new String[]{
-                    Manifest.permission.BLUETOOTH
-            }, 0);
-        }
         try {
             scanner.startScan(filters, settings, scanCallback);
         } catch (Exception e) {
@@ -164,6 +136,36 @@ public class PluginActivity extends UnityPlayerActivity {
 //        RealVector standardDeviation = optimum.getSigma(0);
 //        RealMatrix covarianceMatrix = optimum.getCovariances(0);
         return optimum.getPoint().toArray();
+    }
+
+    private void checkPerms() {
+        String locationPermission = Build.VERSION.SDK_INT >= 29 ? Manifest.permission.ACCESS_FINE_LOCATION : Manifest.permission.ACCESS_COARSE_LOCATION;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            this.requestPermissions(
+                    new String[]{
+                            locationPermission,
+                            Manifest.permission.BLUETOOTH_ADMIN
+                    }, 0);
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            this.requestPermissions(
+                    new String[]{
+                            Manifest.permission.BLUETOOTH_SCAN
+                    }, 0);
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            if (PluginActivity.this.checkSelfPermission(Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+                PluginActivity.this.requestPermissions(new String[]{
+                        Manifest.permission.BLUETOOTH_CONNECT
+                }, 0);
+            }
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            PluginActivity.this.requestPermissions(new String[]{
+                    Manifest.permission.BLUETOOTH
+            }, 0);
+        }
     }
 
     @Override

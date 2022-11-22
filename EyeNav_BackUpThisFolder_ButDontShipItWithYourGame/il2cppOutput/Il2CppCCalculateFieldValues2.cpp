@@ -1154,25 +1154,14 @@ struct Mobile_t304A73480DF447472BDB16BA19A9E4FE2C8CB2DD_StaticFields
 	Action_1_t10DCB0C07D0D3C565CEACADC80D1152B35A45F6C* ___OnMuteStateChanged_2;
 };
 
-// BLE/<GetRssiData>d__25
-struct U3CGetRssiDataU3Ed__25_tED999ECF79B7CDCCDC48C5D3B8D378E4372D92F8  : public RuntimeObject
+// BLE/<GetRssiData>d__21
+struct U3CGetRssiDataU3Ed__21_tFEA64D834CB4ABC95803AA18309AAF303E77D0E8  : public RuntimeObject
 {
-	// System.Int32 BLE/<GetRssiData>d__25::<>1__state
+	// System.Int32 BLE/<GetRssiData>d__21::<>1__state
 	int32_t ___U3CU3E1__state_0;
-	// System.Object BLE/<GetRssiData>d__25::<>2__current
+	// System.Object BLE/<GetRssiData>d__21::<>2__current
 	RuntimeObject* ___U3CU3E2__current_1;
-	// BLE BLE/<GetRssiData>d__25::<>4__this
-	BLE_t5ABE111EC68949E758EB2AC74D8FC77B13B0FEAE* ___U3CU3E4__this_2;
-};
-
-// BLE/<SetUserPosition>d__26
-struct U3CSetUserPositionU3Ed__26_t23938378360ADE0B5831343F0E27CE2664495D56  : public RuntimeObject
-{
-	// System.Int32 BLE/<SetUserPosition>d__26::<>1__state
-	int32_t ___U3CU3E1__state_0;
-	// System.Object BLE/<SetUserPosition>d__26::<>2__current
-	RuntimeObject* ___U3CU3E2__current_1;
-	// BLE BLE/<SetUserPosition>d__26::<>4__this
+	// BLE BLE/<GetRssiData>d__21::<>4__this
 	BLE_t5ABE111EC68949E758EB2AC74D8FC77B13B0FEAE* ___U3CU3E4__this_2;
 };
 
@@ -5952,22 +5941,14 @@ struct BLE_t5ABE111EC68949E758EB2AC74D8FC77B13B0FEAE  : public MonoBehaviour_t53
 	TMP_InputField_t3488E0EE8C3DF56C6A328EC95D1BEEA2DF4A7D5F* ___observeTime_13;
 	// TMPro.TMP_InputField BLE::logArea
 	TMP_InputField_t3488E0EE8C3DF56C6A328EC95D1BEEA2DF4A7D5F* ___logArea_14;
-	// UnityEngine.GameObject BLE::beacon1
-	GameObject_t76FEDD663AB33C991A9C9A23129337651094216F* ___beacon1_15;
-	// UnityEngine.GameObject BLE::beacon2
-	GameObject_t76FEDD663AB33C991A9C9A23129337651094216F* ___beacon2_16;
-	// UnityEngine.GameObject BLE::beacon3
-	GameObject_t76FEDD663AB33C991A9C9A23129337651094216F* ___beacon3_17;
-	// UnityEngine.GameObject BLE::beacon4
-	GameObject_t76FEDD663AB33C991A9C9A23129337651094216F* ___beacon4_18;
 	// UnityEngine.GameObject BLE::userObj
-	GameObject_t76FEDD663AB33C991A9C9A23129337651094216F* ___userObj_19;
+	GameObject_t76FEDD663AB33C991A9C9A23129337651094216F* ___userObj_15;
 	// UnityEngine.AndroidJavaObject BLE::_pluginActivity
-	AndroidJavaObject_t8FFB930F335C1178405B82AC2BF512BB1EEF9EB0* ____pluginActivity_20;
+	AndroidJavaObject_t8FFB930F335C1178405B82AC2BF512BB1EEF9EB0* ____pluginActivity_16;
 	// System.Double BLE::time
-	double ___time_21;
+	double ___time_17;
 	// System.Single BLE::counter
-	float ___counter_22;
+	float ___counter_18;
 };
 #ifdef __clang__
 #pragma clang diagnostic pop
@@ -7002,22 +6983,19 @@ IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable6513[1] =
 	static_cast<int32_t>(offsetof(NavMesh_t3543D236ABB9A67F696BCF9440D669A1578B3D46_StaticFields, ___onPreUpdate_0)),};
 IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable6522[3] = 
 {
-	static_cast<int32_t>(offsetof(U3CGetRssiDataU3Ed__25_tED999ECF79B7CDCCDC48C5D3B8D378E4372D92F8, ___U3CU3E1__state_0)),static_cast<int32_t>(offsetof(U3CGetRssiDataU3Ed__25_tED999ECF79B7CDCCDC48C5D3B8D378E4372D92F8, ___U3CU3E2__current_1)),static_cast<int32_t>(offsetof(U3CGetRssiDataU3Ed__25_tED999ECF79B7CDCCDC48C5D3B8D378E4372D92F8, ___U3CU3E4__this_2)),};
-IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable6523[3] = 
+	static_cast<int32_t>(offsetof(U3CGetRssiDataU3Ed__21_tFEA64D834CB4ABC95803AA18309AAF303E77D0E8, ___U3CU3E1__state_0)),static_cast<int32_t>(offsetof(U3CGetRssiDataU3Ed__21_tFEA64D834CB4ABC95803AA18309AAF303E77D0E8, ___U3CU3E2__current_1)),static_cast<int32_t>(offsetof(U3CGetRssiDataU3Ed__21_tFEA64D834CB4ABC95803AA18309AAF303E77D0E8, ___U3CU3E4__this_2)),};
+IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable6523[15] = 
 {
-	static_cast<int32_t>(offsetof(U3CSetUserPositionU3Ed__26_t23938378360ADE0B5831343F0E27CE2664495D56, ___U3CU3E1__state_0)),static_cast<int32_t>(offsetof(U3CSetUserPositionU3Ed__26_t23938378360ADE0B5831343F0E27CE2664495D56, ___U3CU3E2__current_1)),static_cast<int32_t>(offsetof(U3CSetUserPositionU3Ed__26_t23938378360ADE0B5831343F0E27CE2664495D56, ___U3CU3E4__this_2)),};
-IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable6524[19] = 
-{
-	static_cast<int32_t>(offsetof(BLE_t5ABE111EC68949E758EB2AC74D8FC77B13B0FEAE, ___rssi1_4)),static_cast<int32_t>(offsetof(BLE_t5ABE111EC68949E758EB2AC74D8FC77B13B0FEAE, ___rssi2_5)),static_cast<int32_t>(offsetof(BLE_t5ABE111EC68949E758EB2AC74D8FC77B13B0FEAE, ___rssi3_6)),static_cast<int32_t>(offsetof(BLE_t5ABE111EC68949E758EB2AC74D8FC77B13B0FEAE, ___rssi4_7)),static_cast<int32_t>(offsetof(BLE_t5ABE111EC68949E758EB2AC74D8FC77B13B0FEAE, ___dist1_8)),static_cast<int32_t>(offsetof(BLE_t5ABE111EC68949E758EB2AC74D8FC77B13B0FEAE, ___dist2_9)),static_cast<int32_t>(offsetof(BLE_t5ABE111EC68949E758EB2AC74D8FC77B13B0FEAE, ___dist3_10)),static_cast<int32_t>(offsetof(BLE_t5ABE111EC68949E758EB2AC74D8FC77B13B0FEAE, ___dist4_11)),static_cast<int32_t>(offsetof(BLE_t5ABE111EC68949E758EB2AC74D8FC77B13B0FEAE, ___nFactor_12)),static_cast<int32_t>(offsetof(BLE_t5ABE111EC68949E758EB2AC74D8FC77B13B0FEAE, ___observeTime_13)),static_cast<int32_t>(offsetof(BLE_t5ABE111EC68949E758EB2AC74D8FC77B13B0FEAE, ___logArea_14)),static_cast<int32_t>(offsetof(BLE_t5ABE111EC68949E758EB2AC74D8FC77B13B0FEAE, ___beacon1_15)),static_cast<int32_t>(offsetof(BLE_t5ABE111EC68949E758EB2AC74D8FC77B13B0FEAE, ___beacon2_16)),static_cast<int32_t>(offsetof(BLE_t5ABE111EC68949E758EB2AC74D8FC77B13B0FEAE, ___beacon3_17)),static_cast<int32_t>(offsetof(BLE_t5ABE111EC68949E758EB2AC74D8FC77B13B0FEAE, ___beacon4_18)),static_cast<int32_t>(offsetof(BLE_t5ABE111EC68949E758EB2AC74D8FC77B13B0FEAE, ___userObj_19)),static_cast<int32_t>(offsetof(BLE_t5ABE111EC68949E758EB2AC74D8FC77B13B0FEAE, ____pluginActivity_20)),static_cast<int32_t>(offsetof(BLE_t5ABE111EC68949E758EB2AC74D8FC77B13B0FEAE, ___time_21)),static_cast<int32_t>(offsetof(BLE_t5ABE111EC68949E758EB2AC74D8FC77B13B0FEAE, ___counter_22)),};
-IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable6526[1] = 
+	static_cast<int32_t>(offsetof(BLE_t5ABE111EC68949E758EB2AC74D8FC77B13B0FEAE, ___rssi1_4)),static_cast<int32_t>(offsetof(BLE_t5ABE111EC68949E758EB2AC74D8FC77B13B0FEAE, ___rssi2_5)),static_cast<int32_t>(offsetof(BLE_t5ABE111EC68949E758EB2AC74D8FC77B13B0FEAE, ___rssi3_6)),static_cast<int32_t>(offsetof(BLE_t5ABE111EC68949E758EB2AC74D8FC77B13B0FEAE, ___rssi4_7)),static_cast<int32_t>(offsetof(BLE_t5ABE111EC68949E758EB2AC74D8FC77B13B0FEAE, ___dist1_8)),static_cast<int32_t>(offsetof(BLE_t5ABE111EC68949E758EB2AC74D8FC77B13B0FEAE, ___dist2_9)),static_cast<int32_t>(offsetof(BLE_t5ABE111EC68949E758EB2AC74D8FC77B13B0FEAE, ___dist3_10)),static_cast<int32_t>(offsetof(BLE_t5ABE111EC68949E758EB2AC74D8FC77B13B0FEAE, ___dist4_11)),static_cast<int32_t>(offsetof(BLE_t5ABE111EC68949E758EB2AC74D8FC77B13B0FEAE, ___nFactor_12)),static_cast<int32_t>(offsetof(BLE_t5ABE111EC68949E758EB2AC74D8FC77B13B0FEAE, ___observeTime_13)),static_cast<int32_t>(offsetof(BLE_t5ABE111EC68949E758EB2AC74D8FC77B13B0FEAE, ___logArea_14)),static_cast<int32_t>(offsetof(BLE_t5ABE111EC68949E758EB2AC74D8FC77B13B0FEAE, ___userObj_15)),static_cast<int32_t>(offsetof(BLE_t5ABE111EC68949E758EB2AC74D8FC77B13B0FEAE, ____pluginActivity_16)),static_cast<int32_t>(offsetof(BLE_t5ABE111EC68949E758EB2AC74D8FC77B13B0FEAE, ___time_17)),static_cast<int32_t>(offsetof(BLE_t5ABE111EC68949E758EB2AC74D8FC77B13B0FEAE, ___counter_18)),};
+IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable6525[1] = 
 {
 	static_cast<int32_t>(offsetof(DataContractAttribute_tD065D7D14CC8AA548815166AB8B8210D1B3C699F, ___isReference_0)),};
-IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable6527[4] = 
+IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable6526[4] = 
 {
 	static_cast<int32_t>(offsetof(DataMemberAttribute_t8AE446BE9032B9BC8E7B2EDC785F5C6FA0E5BB73, ___name_0)),static_cast<int32_t>(offsetof(DataMemberAttribute_t8AE446BE9032B9BC8E7B2EDC785F5C6FA0E5BB73, ___order_1)),static_cast<int32_t>(offsetof(DataMemberAttribute_t8AE446BE9032B9BC8E7B2EDC785F5C6FA0E5BB73, ___isRequired_2)),static_cast<int32_t>(offsetof(DataMemberAttribute_t8AE446BE9032B9BC8E7B2EDC785F5C6FA0E5BB73, ___emitDefaultValue_3)),};
-IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable6528[1] = 
+IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable6527[1] = 
 {
 	static_cast<int32_t>(offsetof(EnumMemberAttribute_t65B5E85E642C96791DD6AE5EAD0276350954126F, ___value_0)),};
-IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable6533[4] = 
+IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable6532[4] = 
 {
 	static_cast<int32_t>(sizeof(RuntimeObject)),0,0,0,};
