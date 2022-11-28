@@ -1,13 +1,28 @@
 package com.khynsoft.ble;
 
 import android.Manifest;
+import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothManager;
+import android.bluetooth.le.BluetoothLeScanner;
+import android.bluetooth.le.ScanCallback;
+import android.bluetooth.le.ScanFilter;
+import android.bluetooth.le.ScanRecord;
+import android.bluetooth.le.ScanResult;
+import android.bluetooth.le.ScanSettings;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.ActivityCompat;
 
 import com.khynsoft.ble.trilateration.NonLinearLeastSquaresSolver;
 import com.khynsoft.ble.trilateration.TrilaterationFunction;
@@ -18,75 +33,202 @@ import org.apache.commons.math3.fitting.leastsquares.LevenbergMarquardtOptimizer
 import java.util.ArrayList;
 import java.util.List;
 
-import no.nordicsemi.android.support.v18.scanner.BluetoothLeScannerCompat;
-import no.nordicsemi.android.support.v18.scanner.ScanCallback;
-import no.nordicsemi.android.support.v18.scanner.ScanFilter;
-import no.nordicsemi.android.support.v18.scanner.ScanResult;
-import no.nordicsemi.android.support.v18.scanner.ScanSettings;
-
 public class PluginActivity extends UnityPlayerActivity {
 
-    private BluetoothLeScannerCompat scanner;
+    private final static int REQUEST_ENABLE_BT = 1;
+    private static final int PERMISSION_REQUEST_COARSE_LOCATION = 1;
+
+    //private BluetoothLeScannerCompat scanner;
     private static int rssi1 = 0;
     private static int rssi2 = 0;
     private static int rssi3 = 0;
     private static int rssi4 = 0;
 
-    ScanCallback scanCallback = new ScanCallback() {
-        @Override
-        public void onScanResult(int callbackType, @NonNull ScanResult result) {
-            BluetoothDevice device = result.getDevice();
-            switch (device.getName()) {
-                case "KunwareBLE1":
-                    rssi1 = result.getRssi();
-                    break;
-                case "KunwareBLE2":
-                    rssi2 = result.getRssi();
-                    break;
-                case "KunwareBLE3":
-                    rssi3 = result.getRssi();
-                    break;
-                case "KunwareBLE4":
-                    rssi4 = result.getRssi();
-                    break;
-            }
-        }
-        
-        @Override
-        public void onScanFailed(int errorCode) {
-            super.onScanFailed(errorCode);
-            Toast.makeText(PluginActivity.this, "Scan failed!", Toast.LENGTH_SHORT).show();
-        }
-    };
+    private boolean isScanningStarted = false;
+
+    BluetoothManager btManager;
+    BluetoothAdapter btAdapter;
+    BluetoothLeScanner btScanner;
+
+//    ScanCallback scanCallback = new ScanCallback() {
+//        @Override
+//        public void onScanResult(int callbackType, @NonNull ScanResult result) {
+//            BluetoothDevice device = result.getDevice();
+//            switch (device.getName()) {
+//                case "KunwareBLE1":
+//                    rssi1 = result.getRssi();
+//                    break;
+//                case "KunwareBLE2":
+//                    rssi2 = result.getRssi();
+//                    break;
+//                case "KunwareBLE3":
+//                    rssi3 = result.getRssi();
+//                    break;
+//                case "KunwareBLE4":
+//                    rssi4 = result.getRssi();
+//                    break;
+//            }
+//        }
+//
+//        @Override
+//        public void onScanFailed(int errorCode) {
+//            super.onScanFailed(errorCode);
+//            Toast.makeText(PluginActivity.this, "Scan failed!", Toast.LENGTH_SHORT).show();
+//        }
+//    };
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        checkPerms();
         Toast.makeText(this, "Powered by Cor Jesu College", Toast.LENGTH_SHORT).show();
-        scanner = BluetoothLeScannerCompat.getScanner();
+//        scanner = BluetoothLeScannerCompat.getScanner();
 
         //dependency
-        startNordicScan();
-    }
+//        startNordicScan();
 
-    public void startNordicScan() {
+        btManager = (BluetoothManager) getSystemService(BLUETOOTH_SERVICE);
+        btAdapter = btManager.getAdapter();
+        btScanner = btAdapter.getBluetoothLeScanner();
+
+        if (btAdapter != null && !btAdapter.isEnabled()) {
+            Intent enableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivityForResult(enableIntent,REQUEST_ENABLE_BT);
+        }
+
+        // Make sure we have access coarse location enabled, if not, prompt the user to enable it
+        if (this.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("This app needs location access");
+            builder.setMessage("Please grant location access so this app can detect peripherals.");
+            builder.setPositiveButton(android.R.string.ok, null);
+            builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                @Override
+                public void onDismiss(DialogInterface dialog) {
+                    requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, PERMISSION_REQUEST_COARSE_LOCATION);
+                }
+            });
+            builder.show();
+        }
+
         ScanSettings settings = new ScanSettings.Builder()
-                .setLegacy(false)
                 .setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY)
+                .setLegacy(false)
                 .setMatchMode(ScanSettings.MATCH_MODE_AGGRESSIVE)
                 .setNumOfMatches(ScanSettings.MATCH_NUM_MAX_ADVERTISEMENT)
                 .build();
-
         List<ScanFilter> filters = new ArrayList<>();
         filters.add(new ScanFilter.Builder().build());
-        Toast.makeText(this, "Scanning...", Toast.LENGTH_SHORT).show();
-
-
-        try {
-            scanner.startScan(filters, settings, scanCallback);
-        } catch (Exception e) {
-            Toast.makeText(this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+        if(btScanner != null) {
+            AsyncTask.execute(() -> btScanner.startScan(filters, settings, leScanCallback));
+            isScanningStarted = true;
+            Toast.makeText(this, "Scanning...", Toast.LENGTH_SHORT).show();
+        } else {
+            requestBluetooth();
         }
     }
+
+    public void requestBluetooth() {
+        if (btAdapter != null && !btAdapter.isEnabled()) {
+            Intent enableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivityForResult(enableIntent, REQUEST_ENABLE_BT);
+        }
+    }
+
+    // Device scan callback.
+    private final ScanCallback leScanCallback = new ScanCallback() {
+        @Override
+        public void onScanResult(int callbackType, ScanResult result) {
+            if (result != null) {
+                BluetoothDevice device = result.getDevice();
+                switch (device.toString()) {
+                    case "E8:04:2B:72:66:40":
+                        rssi1 = result.getRssi();
+                        break;
+                    case "F3:C9:5C:B3:60:BD":
+                        rssi2 = result.getRssi();
+                        break;
+                    case "D1:8A:3C:8D:55:3F":
+                        rssi3 = result.getRssi();
+                        break;
+                    case "FD:01:70:44:9D:5F":
+                        rssi4 = result.getRssi();
+                        break;
+                }
+            } else {
+                Toast.makeText(PluginActivity.this, "Result is null!", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        @Override
+        public void onScanFailed(int errorCode) {
+            Toast.makeText(PluginActivity.this, "Scan Failed!", Toast.LENGTH_SHORT).show();
+        }
+    };
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == PERMISSION_REQUEST_COARSE_LOCATION) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                System.out.println("coarse location permission granted");
+            } else {
+                final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle("Functionality limited");
+                builder.setMessage("Since location access has not been granted, this app will not be able to discover beacons when in the background.");
+                builder.setPositiveButton(android.R.string.ok, null);
+                builder.setOnDismissListener(dialog -> {
+                });
+                builder.show();
+            }
+        }
+    }
+
+    public void startScan() {
+
+    }
+
+    public void stopScan() {
+        if(btScanner != null)
+            AsyncTask.execute(() -> btScanner.stopScan(leScanCallback));
+        else {
+            requestBluetooth();
+            btScanner = btAdapter.getBluetoothLeScanner();
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(isScanningStarted) {
+            startScan();
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        stopScan();
+        isScanningStarted = false;
+    }
+
+//    public void startNordicScan() {
+//        ScanSettings settings = new ScanSettings.Builder()
+//                .setLegacy(false)
+//                .setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY)
+//                .setMatchMode(ScanSettings.MATCH_MODE_AGGRESSIVE)
+//                .setNumOfMatches(ScanSettings.MATCH_NUM_MAX_ADVERTISEMENT)
+//                .build();
+//
+//        List<ScanFilter> filters = new ArrayList<>();
+//        filters.add(new ScanFilter.Builder().build());
+//        Toast.makeText(this, "Scanning...", Toast.LENGTH_SHORT).show();
+//
+//
+//        try {
+//            scanner.startScan(filters, settings, scanCallback);
+//        } catch (Exception e) {
+//            Toast.makeText(this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+//        }
+//    }
 
     public int getRssi1() {
         return rssi1;
@@ -141,13 +283,11 @@ public class PluginActivity extends UnityPlayerActivity {
     private void checkPerms() {
         String locationPermission = Build.VERSION.SDK_INT >= 29 ? Manifest.permission.ACCESS_FINE_LOCATION : Manifest.permission.ACCESS_COARSE_LOCATION;
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            this.requestPermissions(
-                    new String[]{
-                            locationPermission,
-                            Manifest.permission.BLUETOOTH_ADMIN
-                    }, 0);
-        }
+        this.requestPermissions(
+                new String[]{
+                        locationPermission,
+                        Manifest.permission.BLUETOOTH_ADMIN
+                }, 0);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             this.requestPermissions(
                     new String[]{
@@ -171,6 +311,6 @@ public class PluginActivity extends UnityPlayerActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        scanner.stopScan(scanCallback);
+        stopScan();
     }
 }

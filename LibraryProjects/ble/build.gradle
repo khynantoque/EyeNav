@@ -8,7 +8,7 @@ android {
     compileSdk 32
 
     defaultConfig {
-        minSdk 21
+        minSdk 26
         targetSdk 32
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -40,6 +40,5 @@ dependencies {
     // https://mvnrepository.com/artifact/org.apache.commons/commons-math3
     api('org.apache.commons:commons-math3:3.6.1')
     implementation 'no.nordicsemi.android.support.v18:scanner:1.6.0'
-    implementation 'com.nexenio.bleindoorpositioning:core:0.4.0'
 }
 

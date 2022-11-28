@@ -38,6 +38,11 @@ public class BLE : MonoBehaviour
         SetUserPosition();
     }
 
+    public void StartScan()
+    {
+        _pluginActivity.Call("startScan");
+    }
+
     public void RefreshRssi()
     {
         if (_pluginActivity != null)
@@ -116,5 +121,9 @@ public class BLE : MonoBehaviour
         }
 
     }
+}
+
+public class Kalman
+{
 
 }
