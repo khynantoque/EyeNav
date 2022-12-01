@@ -662,8 +662,6 @@ struct Stream_tF844051B786E8F7F4244DBD218D74E8617B9A2DE;
 struct String_t;
 // UnityEngine.SubsystemsImplementation.SubsystemProvider
 struct SubsystemProvider_tE1865B8FE698C81A59AED35E0E536BD53F402455;
-// TMPro.TMP_Dropdown
-struct TMP_Dropdown_t73B37BFDA0D005451C7B750938AFB1748E5EA504;
 // TMPro.TMP_InputField
 struct TMP_InputField_t3488E0EE8C3DF56C6A328EC95D1BEEA2DF4A7D5F;
 // TMPro.TMP_Text
@@ -1656,11 +1654,6 @@ struct Input_t47D83E2A50E6AF7F8A47AA06FBEF9EBE6BBC22BB  : public RuntimeObject
 
 // UnityEngine.Internal_SubsystemDescriptors
 struct Internal_SubsystemDescriptors_t087D53EE6F9D7AAEA9E38D42AF436C952DF7936F  : public RuntimeObject
-{
-};
-
-// Kalman
-struct Kalman_tB9F7ED25CD971A9D50D4C2CEFEBE6D4D6502586E  : public RuntimeObject
 {
 };
 
@@ -3128,15 +3121,33 @@ struct Mobile_t304A73480DF447472BDB16BA19A9E4FE2C8CB2DD_StaticFields
 	Action_1_t10DCB0C07D0D3C565CEACADC80D1152B35A45F6C* ___OnMuteStateChanged_2;
 };
 
-// BLE/<GetRssiData>d__22
-struct U3CGetRssiDataU3Ed__22_tBFDCF1BA4AD88A32B8C9D301BA7FCBAD7713B84F  : public RuntimeObject
+// BLE/<GetRssiData>d__38
+struct U3CGetRssiDataU3Ed__38_tB0D19F866CD0E9454FD768ED2688FB1532BC3558  : public RuntimeObject
 {
-	// System.Int32 BLE/<GetRssiData>d__22::<>1__state
+	// System.Int32 BLE/<GetRssiData>d__38::<>1__state
 	int32_t ___U3CU3E1__state_0;
-	// System.Object BLE/<GetRssiData>d__22::<>2__current
+	// System.Object BLE/<GetRssiData>d__38::<>2__current
 	RuntimeObject* ___U3CU3E2__current_1;
-	// BLE BLE/<GetRssiData>d__22::<>4__this
+	// BLE BLE/<GetRssiData>d__38::<>4__this
 	BLE_t5ABE111EC68949E758EB2AC74D8FC77B13B0FEAE* ___U3CU3E4__this_2;
+};
+
+// BLE/<UpdateRSSIAndDistance>d__29
+struct U3CUpdateRSSIAndDistanceU3Ed__29_tB7D6910C7FF8AE6C8618C75C15FA67CF1E9BD2E1  : public RuntimeObject
+{
+	// System.Int32 BLE/<UpdateRSSIAndDistance>d__29::<>1__state
+	int32_t ___U3CU3E1__state_0;
+	// System.Object BLE/<UpdateRSSIAndDistance>d__29::<>2__current
+	RuntimeObject* ___U3CU3E2__current_1;
+	// BLE BLE/<UpdateRSSIAndDistance>d__29::<>4__this
+	BLE_t5ABE111EC68949E758EB2AC74D8FC77B13B0FEAE* ___U3CU3E4__this_2;
+};
+
+// BLE/Kalman
+struct Kalman_t53CE1FE5266E7825502B6208352135AD745E081A  : public RuntimeObject
+{
+	// System.Int32 BLE/Kalman::trueRssi
+	int32_t ___trueRssi_0;
 };
 
 // Mono.Math.BigInteger/Kernel
@@ -14175,157 +14186,62 @@ struct AudioListener_t1D629CE9BC079C8ECDE8F822616E8A8E319EAE35  : public AudioBe
 // BLE
 struct BLE_t5ABE111EC68949E758EB2AC74D8FC77B13B0FEAE  : public MonoBehaviour_t532A11E69716D348D8AA7F854AFCBFCB8AD17F71
 {
-	// TMPro.TMP_Text BLE::rssi1
-	TMP_Text_tE8D677872D43AD4B2AAF0D6101692A17D0B251A9* ___rssi1_4;
-	// TMPro.TMP_Text BLE::rssi2
-	TMP_Text_tE8D677872D43AD4B2AAF0D6101692A17D0B251A9* ___rssi2_5;
-	// TMPro.TMP_Text BLE::rssi3
-	TMP_Text_tE8D677872D43AD4B2AAF0D6101692A17D0B251A9* ___rssi3_6;
-	// TMPro.TMP_Text BLE::rssi4
-	TMP_Text_tE8D677872D43AD4B2AAF0D6101692A17D0B251A9* ___rssi4_7;
-	// TMPro.TMP_Text BLE::dist1
-	TMP_Text_tE8D677872D43AD4B2AAF0D6101692A17D0B251A9* ___dist1_8;
-	// TMPro.TMP_Text BLE::dist2
-	TMP_Text_tE8D677872D43AD4B2AAF0D6101692A17D0B251A9* ___dist2_9;
-	// TMPro.TMP_Text BLE::dist3
-	TMP_Text_tE8D677872D43AD4B2AAF0D6101692A17D0B251A9* ___dist3_10;
-	// TMPro.TMP_Text BLE::dist4
-	TMP_Text_tE8D677872D43AD4B2AAF0D6101692A17D0B251A9* ___dist4_11;
-	// TMPro.TMP_InputField BLE::nFactor
-	TMP_InputField_t3488E0EE8C3DF56C6A328EC95D1BEEA2DF4A7D5F* ___nFactor_12;
-	// TMPro.TMP_InputField BLE::observeTime
-	TMP_InputField_t3488E0EE8C3DF56C6A328EC95D1BEEA2DF4A7D5F* ___observeTime_13;
-	// TMPro.TMP_InputField BLE::logArea
-	TMP_InputField_t3488E0EE8C3DF56C6A328EC95D1BEEA2DF4A7D5F* ___logArea_14;
-	// UnityEngine.GameObject BLE::userObj
-	GameObject_t76FEDD663AB33C991A9C9A23129337651094216F* ___userObj_15;
-	// UnityEngine.AndroidJavaObject BLE::_pluginActivity
-	AndroidJavaObject_t8FFB930F335C1178405B82AC2BF512BB1EEF9EB0* ____pluginActivity_16;
-	// System.Double BLE::time
-	double ___time_17;
-	// System.Single BLE::counter
-	float ___counter_18;
-};
-
-// EnvironmentConf
-struct EnvironmentConf_t5C243FF073B89C0EC94B2B52F0BF46BA1F484933  : public MonoBehaviour_t532A11E69716D348D8AA7F854AFCBFCB8AD17F71
-{
-	// UnityEngine.GameObject EnvironmentConf::beacon1
+	// UnityEngine.GameObject BLE::beacon1
 	GameObject_t76FEDD663AB33C991A9C9A23129337651094216F* ___beacon1_4;
-	// UnityEngine.GameObject EnvironmentConf::beacon2
+	// UnityEngine.GameObject BLE::beacon2
 	GameObject_t76FEDD663AB33C991A9C9A23129337651094216F* ___beacon2_5;
-	// UnityEngine.GameObject EnvironmentConf::beacon3
+	// UnityEngine.GameObject BLE::beacon3
 	GameObject_t76FEDD663AB33C991A9C9A23129337651094216F* ___beacon3_6;
-	// UnityEngine.GameObject EnvironmentConf::beacon4
+	// UnityEngine.GameObject BLE::beacon4
 	GameObject_t76FEDD663AB33C991A9C9A23129337651094216F* ___beacon4_7;
-	// TMPro.TMP_InputField EnvironmentConf::inpFloorScaleX
-	TMP_InputField_t3488E0EE8C3DF56C6A328EC95D1BEEA2DF4A7D5F* ___inpFloorScaleX_8;
-	// TMPro.TMP_InputField EnvironmentConf::inpFloorScaleY
-	TMP_InputField_t3488E0EE8C3DF56C6A328EC95D1BEEA2DF4A7D5F* ___inpFloorScaleY_9;
-	// TMPro.TMP_InputField EnvironmentConf::inpFloorScaleZ
-	TMP_InputField_t3488E0EE8C3DF56C6A328EC95D1BEEA2DF4A7D5F* ___inpFloorScaleZ_10;
-	// TMPro.TMP_InputField EnvironmentConf::beacon1X
-	TMP_InputField_t3488E0EE8C3DF56C6A328EC95D1BEEA2DF4A7D5F* ___beacon1X_11;
-	// TMPro.TMP_InputField EnvironmentConf::beacon1Y
-	TMP_InputField_t3488E0EE8C3DF56C6A328EC95D1BEEA2DF4A7D5F* ___beacon1Y_12;
-	// TMPro.TMP_InputField EnvironmentConf::beacon1Z
-	TMP_InputField_t3488E0EE8C3DF56C6A328EC95D1BEEA2DF4A7D5F* ___beacon1Z_13;
-	// TMPro.TMP_InputField EnvironmentConf::beacon2X
-	TMP_InputField_t3488E0EE8C3DF56C6A328EC95D1BEEA2DF4A7D5F* ___beacon2X_14;
-	// TMPro.TMP_InputField EnvironmentConf::beacon2Y
-	TMP_InputField_t3488E0EE8C3DF56C6A328EC95D1BEEA2DF4A7D5F* ___beacon2Y_15;
-	// TMPro.TMP_InputField EnvironmentConf::beacon2Z
-	TMP_InputField_t3488E0EE8C3DF56C6A328EC95D1BEEA2DF4A7D5F* ___beacon2Z_16;
-	// TMPro.TMP_InputField EnvironmentConf::beacon3X
-	TMP_InputField_t3488E0EE8C3DF56C6A328EC95D1BEEA2DF4A7D5F* ___beacon3X_17;
-	// TMPro.TMP_InputField EnvironmentConf::beacon3Y
-	TMP_InputField_t3488E0EE8C3DF56C6A328EC95D1BEEA2DF4A7D5F* ___beacon3Y_18;
-	// TMPro.TMP_InputField EnvironmentConf::beacon3Z
-	TMP_InputField_t3488E0EE8C3DF56C6A328EC95D1BEEA2DF4A7D5F* ___beacon3Z_19;
-	// TMPro.TMP_InputField EnvironmentConf::beacon4X
-	TMP_InputField_t3488E0EE8C3DF56C6A328EC95D1BEEA2DF4A7D5F* ___beacon4X_20;
-	// TMPro.TMP_InputField EnvironmentConf::beacon4Y
-	TMP_InputField_t3488E0EE8C3DF56C6A328EC95D1BEEA2DF4A7D5F* ___beacon4Y_21;
-	// TMPro.TMP_InputField EnvironmentConf::beacon4Z
-	TMP_InputField_t3488E0EE8C3DF56C6A328EC95D1BEEA2DF4A7D5F* ___beacon4Z_22;
-	// TMPro.TMP_InputField EnvironmentConf::cameraPosX
-	TMP_InputField_t3488E0EE8C3DF56C6A328EC95D1BEEA2DF4A7D5F* ___cameraPosX_23;
-	// TMPro.TMP_InputField EnvironmentConf::cameraPosY
-	TMP_InputField_t3488E0EE8C3DF56C6A328EC95D1BEEA2DF4A7D5F* ___cameraPosY_24;
-	// TMPro.TMP_InputField EnvironmentConf::cameraPosZ
-	TMP_InputField_t3488E0EE8C3DF56C6A328EC95D1BEEA2DF4A7D5F* ___cameraPosZ_25;
-	// TMPro.TMP_InputField EnvironmentConf::cameraRotateX
-	TMP_InputField_t3488E0EE8C3DF56C6A328EC95D1BEEA2DF4A7D5F* ___cameraRotateX_26;
-	// TMPro.TMP_InputField EnvironmentConf::cameraRotateY
-	TMP_InputField_t3488E0EE8C3DF56C6A328EC95D1BEEA2DF4A7D5F* ___cameraRotateY_27;
-	// TMPro.TMP_InputField EnvironmentConf::cameraRotateZ
-	TMP_InputField_t3488E0EE8C3DF56C6A328EC95D1BEEA2DF4A7D5F* ___cameraRotateZ_28;
-	// TMPro.TMP_InputField EnvironmentConf::destinationPosX
-	TMP_InputField_t3488E0EE8C3DF56C6A328EC95D1BEEA2DF4A7D5F* ___destinationPosX_29;
-	// TMPro.TMP_InputField EnvironmentConf::destinationPosY
-	TMP_InputField_t3488E0EE8C3DF56C6A328EC95D1BEEA2DF4A7D5F* ___destinationPosY_30;
-	// TMPro.TMP_InputField EnvironmentConf::destinationPosZ
-	TMP_InputField_t3488E0EE8C3DF56C6A328EC95D1BEEA2DF4A7D5F* ___destinationPosZ_31;
-	// TMPro.TMP_InputField EnvironmentConf::inpCameraSize
-	TMP_InputField_t3488E0EE8C3DF56C6A328EC95D1BEEA2DF4A7D5F* ___inpCameraSize_32;
-	// UnityEngine.GameObject EnvironmentConf::destinationObject
-	GameObject_t76FEDD663AB33C991A9C9A23129337651094216F* ___destinationObject_33;
-	// UnityEngine.Camera EnvironmentConf::camera
-	Camera_tA92CC927D7439999BC82DBEDC0AA45B470F9E184* ___camera_34;
-	// UnityEngine.GameObject EnvironmentConf::floor
-	GameObject_t76FEDD663AB33C991A9C9A23129337651094216F* ___floor_35;
-	// TMPro.TMP_Dropdown EnvironmentConf::floorDropdown
-	TMP_Dropdown_t73B37BFDA0D005451C7B750938AFB1748E5EA504* ___floorDropdown_36;
-	// System.Single EnvironmentConf::posBeacon1X
-	float ___posBeacon1X_37;
-	// System.Single EnvironmentConf::posBeacon1Y
-	float ___posBeacon1Y_38;
-	// System.Single EnvironmentConf::posBeacon1Z
-	float ___posBeacon1Z_39;
-	// System.Single EnvironmentConf::posBeacon2X
-	float ___posBeacon2X_40;
-	// System.Single EnvironmentConf::posBeacon2Y
-	float ___posBeacon2Y_41;
-	// System.Single EnvironmentConf::posBeacon2Z
-	float ___posBeacon2Z_42;
-	// System.Single EnvironmentConf::posBeacon3X
-	float ___posBeacon3X_43;
-	// System.Single EnvironmentConf::posBeacon3Y
-	float ___posBeacon3Y_44;
-	// System.Single EnvironmentConf::posBeacon3Z
-	float ___posBeacon3Z_45;
-	// System.Single EnvironmentConf::posBeacon4X
-	float ___posBeacon4X_46;
-	// System.Single EnvironmentConf::posBeacon4Y
-	float ___posBeacon4Y_47;
-	// System.Single EnvironmentConf::posBeacon4Z
-	float ___posBeacon4Z_48;
-	// System.Single EnvironmentConf::cameraX
-	float ___cameraX_49;
-	// System.Single EnvironmentConf::cameraY
-	float ___cameraY_50;
-	// System.Single EnvironmentConf::cameraZ
-	float ___cameraZ_51;
-	// System.Single EnvironmentConf::floorScaleX
-	float ___floorScaleX_52;
-	// System.Single EnvironmentConf::floorScaleY
-	float ___floorScaleY_53;
-	// System.Single EnvironmentConf::floorScaleZ
-	float ___floorScaleZ_54;
-	// System.Single EnvironmentConf::rotateCameraX
-	float ___rotateCameraX_55;
-	// System.Single EnvironmentConf::rotateCameraY
-	float ___rotateCameraY_56;
-	// System.Single EnvironmentConf::rotateCameraZ
-	float ___rotateCameraZ_57;
-	// System.Single EnvironmentConf::destPosX
-	float ___destPosX_58;
-	// System.Single EnvironmentConf::destPosY
-	float ___destPosY_59;
-	// System.Single EnvironmentConf::destPosZ
-	float ___destPosZ_60;
-	// System.Single EnvironmentConf::cameraSize
-	float ___cameraSize_61;
+	// TMPro.TMP_Text BLE::rssi1
+	TMP_Text_tE8D677872D43AD4B2AAF0D6101692A17D0B251A9* ___rssi1_8;
+	// TMPro.TMP_Text BLE::rssi2
+	TMP_Text_tE8D677872D43AD4B2AAF0D6101692A17D0B251A9* ___rssi2_9;
+	// TMPro.TMP_Text BLE::rssi3
+	TMP_Text_tE8D677872D43AD4B2AAF0D6101692A17D0B251A9* ___rssi3_10;
+	// TMPro.TMP_Text BLE::rssi4
+	TMP_Text_tE8D677872D43AD4B2AAF0D6101692A17D0B251A9* ___rssi4_11;
+	// TMPro.TMP_Text BLE::dist1
+	TMP_Text_tE8D677872D43AD4B2AAF0D6101692A17D0B251A9* ___dist1_12;
+	// TMPro.TMP_Text BLE::dist2
+	TMP_Text_tE8D677872D43AD4B2AAF0D6101692A17D0B251A9* ___dist2_13;
+	// TMPro.TMP_Text BLE::dist3
+	TMP_Text_tE8D677872D43AD4B2AAF0D6101692A17D0B251A9* ___dist3_14;
+	// TMPro.TMP_Text BLE::dist4
+	TMP_Text_tE8D677872D43AD4B2AAF0D6101692A17D0B251A9* ___dist4_15;
+	// TMPro.TMP_InputField BLE::nFactor
+	TMP_InputField_t3488E0EE8C3DF56C6A328EC95D1BEEA2DF4A7D5F* ___nFactor_16;
+	// TMPro.TMP_InputField BLE::observeTime
+	TMP_InputField_t3488E0EE8C3DF56C6A328EC95D1BEEA2DF4A7D5F* ___observeTime_17;
+	// TMPro.TMP_InputField BLE::logArea
+	TMP_InputField_t3488E0EE8C3DF56C6A328EC95D1BEEA2DF4A7D5F* ___logArea_18;
+	// UnityEngine.UI.Toggle BLE::toggleFilteredRssi
+	Toggle_tBF13F3EBA485E06826FD8A38F4B4C1380DF21A1F* ___toggleFilteredRssi_19;
+	// UnityEngine.GameObject BLE::userObj
+	GameObject_t76FEDD663AB33C991A9C9A23129337651094216F* ___userObj_20;
+	// UnityEngine.AndroidJavaObject BLE::_pluginActivity
+	AndroidJavaObject_t8FFB930F335C1178405B82AC2BF512BB1EEF9EB0* ____pluginActivity_21;
+	// System.Double BLE::posBeacon1X
+	double ___posBeacon1X_22;
+	// System.Double BLE::posBeacon1Y
+	double ___posBeacon1Y_23;
+	// System.Double BLE::posBeacon2X
+	double ___posBeacon2X_24;
+	// System.Double BLE::posBeacon2Y
+	double ___posBeacon2Y_25;
+	// System.Double BLE::posBeacon3X
+	double ___posBeacon3X_26;
+	// System.Double BLE::posBeacon3Y
+	double ___posBeacon3Y_27;
+	// System.Double BLE::posBeacon4X
+	double ___posBeacon4X_28;
+	// System.Double BLE::posBeacon4Y
+	double ___posBeacon4Y_29;
+	// System.Double BLE::time
+	double ___time_30;
+	// System.Single BLE::counter
+	float ___counter_31;
 };
 
 // UnityEngine.EventSystems.EventTrigger
@@ -17523,25 +17439,25 @@ const Il2CppTypeDefinitionSizes g_typeDefinitionSize6502 = { sizeof(SampleFrames
 extern const Il2CppTypeDefinitionSizes g_typeDefinitionSize6503;
 const Il2CppTypeDefinitionSizes g_typeDefinitionSize6503 = { sizeof(AudioSampleProvider_t602353124A2F6F2AEC38E56C3C21932344F712E2), -1, 0, 0 };
 extern const Il2CppTypeDefinitionSizes g_typeDefinitionSize6504;
-const Il2CppTypeDefinitionSizes g_typeDefinitionSize6504 = { sizeof(U3CModuleU3E_tBB65183F1134474D09FF49B95625D25472B9BA8B), -1, 0, 0 };
+const Il2CppTypeDefinitionSizes g_typeDefinitionSize6504 = { sizeof(U3CModuleU3E_t0643977EA9107777E6F2E30DC5F5326A467F5F6B), -1, 0, 0 };
 extern const Il2CppTypeDefinitionSizes g_typeDefinitionSize6505;
-const Il2CppTypeDefinitionSizes g_typeDefinitionSize6505 = { sizeof(U3CGetRssiDataU3Ed__22_tBFDCF1BA4AD88A32B8C9D301BA7FCBAD7713B84F), -1, 0, 0 };
+const Il2CppTypeDefinitionSizes g_typeDefinitionSize6505 = { sizeof(Physics2D_t64C0DB5246067DAC2E83A52558A0AC68AF3BE94D), -1, sizeof(Physics2D_t64C0DB5246067DAC2E83A52558A0AC68AF3BE94D_StaticFields), 0 };
 extern const Il2CppTypeDefinitionSizes g_typeDefinitionSize6506;
-const Il2CppTypeDefinitionSizes g_typeDefinitionSize6506 = { sizeof(BLE_t5ABE111EC68949E758EB2AC74D8FC77B13B0FEAE), -1, 0, 0 };
+const Il2CppTypeDefinitionSizes g_typeDefinitionSize6506 = { sizeof(RaycastHit2D_t3EAAA06E6603C6BC61AC1291DD881C5C1E23BDFA)+ sizeof(RuntimeObject), sizeof(RaycastHit2D_t3EAAA06E6603C6BC61AC1291DD881C5C1E23BDFA), 0, 0 };
 extern const Il2CppTypeDefinitionSizes g_typeDefinitionSize6507;
-const Il2CppTypeDefinitionSizes g_typeDefinitionSize6507 = { sizeof(Kalman_tB9F7ED25CD971A9D50D4C2CEFEBE6D4D6502586E), -1, 0, 0 };
+const Il2CppTypeDefinitionSizes g_typeDefinitionSize6507 = { sizeof(Rigidbody2D_tBEBE9523CF4448544085AF46BF7E10AA499F320F), -1, 0, 0 };
 extern const Il2CppTypeDefinitionSizes g_typeDefinitionSize6508;
-const Il2CppTypeDefinitionSizes g_typeDefinitionSize6508 = { sizeof(EnvironmentConf_t5C243FF073B89C0EC94B2B52F0BF46BA1F484933), -1, 0, 0 };
+const Il2CppTypeDefinitionSizes g_typeDefinitionSize6508 = { sizeof(Collider2D_t6A17BA7734600EF3F26588E9ED903617D5B8EB52), -1, 0, 0 };
 extern const Il2CppTypeDefinitionSizes g_typeDefinitionSize6509;
-const Il2CppTypeDefinitionSizes g_typeDefinitionSize6509 = { sizeof(U3CModuleU3E_t0643977EA9107777E6F2E30DC5F5326A467F5F6B), -1, 0, 0 };
+const Il2CppTypeDefinitionSizes g_typeDefinitionSize6509 = { sizeof(U3CModuleU3E_tBB65183F1134474D09FF49B95625D25472B9BA8B), -1, 0, 0 };
 extern const Il2CppTypeDefinitionSizes g_typeDefinitionSize6510;
-const Il2CppTypeDefinitionSizes g_typeDefinitionSize6510 = { sizeof(Physics2D_t64C0DB5246067DAC2E83A52558A0AC68AF3BE94D), -1, sizeof(Physics2D_t64C0DB5246067DAC2E83A52558A0AC68AF3BE94D_StaticFields), 0 };
+const Il2CppTypeDefinitionSizes g_typeDefinitionSize6510 = { sizeof(Kalman_t53CE1FE5266E7825502B6208352135AD745E081A), -1, 0, 0 };
 extern const Il2CppTypeDefinitionSizes g_typeDefinitionSize6511;
-const Il2CppTypeDefinitionSizes g_typeDefinitionSize6511 = { sizeof(RaycastHit2D_t3EAAA06E6603C6BC61AC1291DD881C5C1E23BDFA)+ sizeof(RuntimeObject), sizeof(RaycastHit2D_t3EAAA06E6603C6BC61AC1291DD881C5C1E23BDFA), 0, 0 };
+const Il2CppTypeDefinitionSizes g_typeDefinitionSize6511 = { sizeof(U3CUpdateRSSIAndDistanceU3Ed__29_tB7D6910C7FF8AE6C8618C75C15FA67CF1E9BD2E1), -1, 0, 0 };
 extern const Il2CppTypeDefinitionSizes g_typeDefinitionSize6512;
-const Il2CppTypeDefinitionSizes g_typeDefinitionSize6512 = { sizeof(Rigidbody2D_tBEBE9523CF4448544085AF46BF7E10AA499F320F), -1, 0, 0 };
+const Il2CppTypeDefinitionSizes g_typeDefinitionSize6512 = { sizeof(U3CGetRssiDataU3Ed__38_tB0D19F866CD0E9454FD768ED2688FB1532BC3558), -1, 0, 0 };
 extern const Il2CppTypeDefinitionSizes g_typeDefinitionSize6513;
-const Il2CppTypeDefinitionSizes g_typeDefinitionSize6513 = { sizeof(Collider2D_t6A17BA7734600EF3F26588E9ED903617D5B8EB52), -1, 0, 0 };
+const Il2CppTypeDefinitionSizes g_typeDefinitionSize6513 = { sizeof(BLE_t5ABE111EC68949E758EB2AC74D8FC77B13B0FEAE), -1, 0, 0 };
 extern const Il2CppTypeDefinitionSizes g_typeDefinitionSize6514;
 const Il2CppTypeDefinitionSizes g_typeDefinitionSize6514 = { sizeof(U3CModuleU3E_tC64F337A786EF1DE807D08323D848149E353A750), -1, 0, 0 };
 extern const Il2CppTypeDefinitionSizes g_typeDefinitionSize6515;

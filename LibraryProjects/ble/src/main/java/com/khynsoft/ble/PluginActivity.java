@@ -26,6 +26,7 @@ import androidx.core.app.ActivityCompat;
 
 import com.khynsoft.ble.trilateration.NonLinearLeastSquaresSolver;
 import com.khynsoft.ble.trilateration.TrilaterationFunction;
+import com.khynsoft.ble.vanillable.RSSISmoother;
 
 import org.apache.commons.math3.fitting.leastsquares.LeastSquaresOptimizer;
 import org.apache.commons.math3.fitting.leastsquares.LevenbergMarquardtOptimizer;
@@ -44,38 +45,31 @@ public class PluginActivity extends UnityPlayerActivity {
     private static int rssi3 = 0;
     private static int rssi4 = 0;
 
+    private static int txPower1 = 0;
+    private static int txPower2 = 0;
+    private static int txPower3 = 0;
+    private static int txPower4 = 0;
+
+    private double nFactor = 2.5;
+
     private boolean isScanningStarted = false;
+
+    private final double[] posBeacon1 = new double[2];
+    private final double[] posBeacon2 = new double[2];
+    private final double[] posBeacon3 = new double[2];
+    private final double[] posBeacon4 = new double[2];
 
     BluetoothManager btManager;
     BluetoothAdapter btAdapter;
     BluetoothLeScanner btScanner;
 
-//    ScanCallback scanCallback = new ScanCallback() {
-//        @Override
-//        public void onScanResult(int callbackType, @NonNull ScanResult result) {
-//            BluetoothDevice device = result.getDevice();
-//            switch (device.getName()) {
-//                case "KunwareBLE1":
-//                    rssi1 = result.getRssi();
-//                    break;
-//                case "KunwareBLE2":
-//                    rssi2 = result.getRssi();
-//                    break;
-//                case "KunwareBLE3":
-//                    rssi3 = result.getRssi();
-//                    break;
-//                case "KunwareBLE4":
-//                    rssi4 = result.getRssi();
-//                    break;
-//            }
-//        }
-//
-//        @Override
-//        public void onScanFailed(int errorCode) {
-//            super.onScanFailed(errorCode);
-//            Toast.makeText(PluginActivity.this, "Scan failed!", Toast.LENGTH_SHORT).show();
-//        }
-//    };
+    private ScanSettings settings;
+    private List<ScanFilter> filters;
+
+    RSSISmoother smoothRssi1 = new RSSISmoother();
+    RSSISmoother smoothRssi2 = new RSSISmoother();
+    RSSISmoother smoothRssi3 = new RSSISmoother();
+    RSSISmoother smoothRssi4 = new RSSISmoother();
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -110,13 +104,13 @@ public class PluginActivity extends UnityPlayerActivity {
             builder.show();
         }
 
-        ScanSettings settings = new ScanSettings.Builder()
+        settings = new ScanSettings.Builder()
                 .setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY)
                 .setLegacy(false)
                 .setMatchMode(ScanSettings.MATCH_MODE_AGGRESSIVE)
                 .setNumOfMatches(ScanSettings.MATCH_NUM_MAX_ADVERTISEMENT)
                 .build();
-        List<ScanFilter> filters = new ArrayList<>();
+        filters = new ArrayList<>();
         filters.add(new ScanFilter.Builder().build());
         if(btScanner != null) {
             AsyncTask.execute(() -> btScanner.startScan(filters, settings, leScanCallback));
@@ -125,6 +119,8 @@ public class PluginActivity extends UnityPlayerActivity {
         } else {
             requestBluetooth();
         }
+
+
     }
 
     public void requestBluetooth() {
@@ -143,15 +139,19 @@ public class PluginActivity extends UnityPlayerActivity {
                 switch (device.toString()) {
                     case "E8:04:2B:72:66:40":
                         rssi1 = result.getRssi();
+                        txPower1 = result.getTxPower();
                         break;
                     case "F3:C9:5C:B3:60:BD":
                         rssi2 = result.getRssi();
+                        txPower2 = result.getTxPower();
                         break;
                     case "D1:8A:3C:8D:55:3F":
                         rssi3 = result.getRssi();
+                        txPower3 = result.getTxPower();
                         break;
                     case "FD:01:70:44:9D:5F":
                         rssi4 = result.getRssi();
+                        txPower4 = result.getTxPower();
                         break;
                 }
             } else {
@@ -183,7 +183,13 @@ public class PluginActivity extends UnityPlayerActivity {
     }
 
     public void startScan() {
-
+        if(btScanner != null) {
+            AsyncTask.execute(() -> btScanner.startScan(filters, settings, leScanCallback));
+            isScanningStarted = true;
+            Toast.makeText(this, "Scanning...", Toast.LENGTH_SHORT).show();
+        } else {
+            requestBluetooth();
+        }
     }
 
     public void stopScan() {
@@ -198,7 +204,7 @@ public class PluginActivity extends UnityPlayerActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        if(isScanningStarted) {
+        if(!isScanningStarted) {
             startScan();
         }
     }
@@ -207,28 +213,9 @@ public class PluginActivity extends UnityPlayerActivity {
     protected void onStop() {
         super.onStop();
         stopScan();
-        isScanningStarted = false;
+        if(isScanningStarted)
+            isScanningStarted = false;
     }
-
-//    public void startNordicScan() {
-//        ScanSettings settings = new ScanSettings.Builder()
-//                .setLegacy(false)
-//                .setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY)
-//                .setMatchMode(ScanSettings.MATCH_MODE_AGGRESSIVE)
-//                .setNumOfMatches(ScanSettings.MATCH_NUM_MAX_ADVERTISEMENT)
-//                .build();
-//
-//        List<ScanFilter> filters = new ArrayList<>();
-//        filters.add(new ScanFilter.Builder().build());
-//        Toast.makeText(this, "Scanning...", Toast.LENGTH_SHORT).show();
-//
-//
-//        try {
-//            scanner.startScan(filters, settings, scanCallback);
-//        } catch (Exception e) {
-//            Toast.makeText(this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-//        }
-//    }
 
     public int getRssi1() {
         return rssi1;
@@ -246,30 +233,103 @@ public class PluginActivity extends UnityPlayerActivity {
         return rssi4;
     }
 
-    public double getDistance(int rssi, int mPow, int n) {
-        return Math.pow(10, (mPow - rssi) / (10.0 * n));
+    public static double getDistance(double rssi, double txPower) {
+        double ratio;
+        ratio = rssi / txPower;//from   ww  w. j a  va  2 s.c  o  m
+        if (ratio < 1.0) {
+            return Math.pow(ratio, 10);
+        } else {
+            double distance;
+            distance = (0.89976) * Math.pow(ratio, 7.7095) + 0.111;
+            // distance = Math.pow(10, (-rssi + txPower) / (10 * 2));
+            // if (distance < Threshold)
+            return distance;
+            // else
+            // return Threshold;
+        }
+    }
+
+    public void setNFactor(double n) {
+        this.nFactor = n;
     }
 
     public double getDistance1() {
-        return getDistance(rssi1, -59, 2);
+        return getDistance(rssi1, -59);
     }
     public double getDistance2() {
-        return getDistance(rssi2, -59, 2);
+        return getDistance(rssi2, -59);
     }
     public double getDistance3() {
-        return getDistance(rssi3, -59, 2);
+        return getDistance(rssi3, -59);
     }
     public double getDistance4() {
-        return getDistance(rssi4, -59, 2);
+        return getDistance(rssi4, -59);
+    }
+
+    public int getSmoothRssi(int beaconNum) {
+        switch(beaconNum) {
+            case 1: return smoothRssi1.getFilteredRssi(rssi1);
+            case 2: return smoothRssi2.getFilteredRssi(rssi2);
+            case 3: return smoothRssi3.getFilteredRssi(rssi3);
+            case 4: return smoothRssi4.getFilteredRssi(rssi4);
+        }
+        return 0;
+    }
+
+    public double getSmoothDistance(int beaconNum) {
+        switch(beaconNum) {
+            case 1: return getDistance(smoothRssi1.getMeanRSSI(), -59);
+            case 2: return getDistance(smoothRssi2.getMeanRSSI(), -59);
+            case 3: return getDistance(smoothRssi3.getMeanRSSI(), -59);
+            case 4: return getDistance(smoothRssi4.getMeanRSSI(), -59);
+        }
+        return 0.0;
+    }
+
+    public void setPosBeacon1(double x, double y) {
+        this.posBeacon1[0] = x;
+        this.posBeacon1[1] = y;
+    }
+
+    public void setPosBeacon2(double x, double y) {
+        this.posBeacon2[0] = x;
+        this.posBeacon2[1] = y;
+    }
+
+    public void setPosBeacon3(double x, double y) {
+        this.posBeacon3[0] = x;
+        this.posBeacon3[1] = y;
+    }
+
+    public void setPosBeacon4(double x, double y) {
+        this.posBeacon4[0] = x;
+        this.posBeacon4[1] = y;
     }
 
     public double[] getUserPosition() {
-        double[][] positions = new double[][] { { 2.125, 0.046228 }, { 0, 1.642872 }, { 0, -1.657096 }, { -2.124334, 0 } };
+        double[][] positions = new double[][] { posBeacon1, posBeacon2, posBeacon3, posBeacon4 };
         double[] distances = new double[] {
                 getDistance1(),
                 getDistance2(),
                 getDistance3(),
                 getDistance4(),
+        };
+        NonLinearLeastSquaresSolver solver = new NonLinearLeastSquaresSolver(new TrilaterationFunction(positions, distances), new LevenbergMarquardtOptimizer());
+        LeastSquaresOptimizer.Optimum optimum = solver.solve();
+
+        // error and geometry information; may throw SingularMatrixException depending the threshold argument provided
+//        RealVector standardDeviation = optimum.getSigma(0);
+//        RealMatrix covarianceMatrix = optimum.getCovariances(0);
+        return optimum.getPoint().toArray();
+    }
+
+    public double[] getFilteredPosition() {
+        double[][] positions = new double[][] { posBeacon1, posBeacon2, posBeacon3, posBeacon4 };
+        double[] distances = new double[] {
+                getSmoothDistance(1),
+                getSmoothDistance(2),
+                getSmoothDistance(3),
+                getSmoothDistance(4)
         };
         NonLinearLeastSquaresSolver solver = new NonLinearLeastSquaresSolver(new TrilaterationFunction(positions, distances), new LevenbergMarquardtOptimizer());
         LeastSquaresOptimizer.Optimum optimum = solver.solve();
