@@ -66,7 +66,23 @@ extern void U3CGetRssiDataU3Ed__38_System_Collections_Generic_IEnumeratorU3CSyst
 extern void U3CGetRssiDataU3Ed__38_System_Collections_IEnumerator_Reset_m2F42C8A7B40CD08820101ED7B35FAA35A05B8E82 (void);
 // 0x0000001B System.Object BLE/<GetRssiData>d__38::System.Collections.IEnumerator.get_Current()
 extern void U3CGetRssiDataU3Ed__38_System_Collections_IEnumerator_get_Current_mB1FE5E6BE678A53D8786A1A73F4C3065AACF5B25 (void);
-static Il2CppMethodPointer s_methodPointers[27] = 
+// 0x0000001C System.Void SetNavigationTarget::Start()
+extern void SetNavigationTarget_Start_m0CFEEDEE4BC72DD7486B429949C561630DED0FB6 (void);
+// 0x0000001D System.Void SetNavigationTarget::NavigateToggle()
+extern void SetNavigationTarget_NavigateToggle_m5E49D86BDBE83AE3157A515F4784233F9144F307 (void);
+// 0x0000001E System.Void SetNavigationTarget::Update()
+extern void SetNavigationTarget_Update_m24DD885D08F1EA5725F6B65E56B8706FBC72EF66 (void);
+// 0x0000001F System.Void SetNavigationTarget::.ctor()
+extern void SetNavigationTarget__ctor_m40AA3B1240C215E094DE629C3BFAD2C4859E6D18 (void);
+// 0x00000020 System.Void SetNavigationTarget/DestinationData::.ctor()
+extern void DestinationData__ctor_mCF492544BD015D58A587EAACC495CB1E03959DD8 (void);
+// 0x00000021 System.Void SetNavigationTarget/DataSaver::saveData(T,System.String)
+// 0x00000022 T SetNavigationTarget/DataSaver::loadData(System.String)
+// 0x00000023 System.Boolean SetNavigationTarget/DataSaver::deleteData(System.String)
+extern void DataSaver_deleteData_mBFC1F5649B4F7B78C0796212007D45068B249CB0 (void);
+// 0x00000024 System.Void SetNavigationTarget/DataSaver::.ctor()
+extern void DataSaver__ctor_m4CBBEF57B1DAAC6EE2F8F737B4692FC10B7AF8E0 (void);
+static Il2CppMethodPointer s_methodPointers[36] = 
 {
 	BLE_Start_mE3B9DA59A6C12CDB0A7203E2802D97820949FB1B,
 	BLE_Update_m9B1C8E67505927D8C1868F4856DB161D4826EAFF,
@@ -95,52 +111,86 @@ static Il2CppMethodPointer s_methodPointers[27] =
 	U3CGetRssiDataU3Ed__38_System_Collections_Generic_IEnumeratorU3CSystem_ObjectU3E_get_Current_m3133C004B203342E58241F170F2B338F2736C3BE,
 	U3CGetRssiDataU3Ed__38_System_Collections_IEnumerator_Reset_m2F42C8A7B40CD08820101ED7B35FAA35A05B8E82,
 	U3CGetRssiDataU3Ed__38_System_Collections_IEnumerator_get_Current_mB1FE5E6BE678A53D8786A1A73F4C3065AACF5B25,
+	SetNavigationTarget_Start_m0CFEEDEE4BC72DD7486B429949C561630DED0FB6,
+	SetNavigationTarget_NavigateToggle_m5E49D86BDBE83AE3157A515F4784233F9144F307,
+	SetNavigationTarget_Update_m24DD885D08F1EA5725F6B65E56B8706FBC72EF66,
+	SetNavigationTarget__ctor_m40AA3B1240C215E094DE629C3BFAD2C4859E6D18,
+	DestinationData__ctor_mCF492544BD015D58A587EAACC495CB1E03959DD8,
+	NULL,
+	NULL,
+	DataSaver_deleteData_mBFC1F5649B4F7B78C0796212007D45068B249CB0,
+	DataSaver__ctor_m4CBBEF57B1DAAC6EE2F8F737B4692FC10B7AF8E0,
 };
-static const int32_t s_InvokerIndices[27] = 
+static const int32_t s_InvokerIndices[36] = 
 {
-	5062,
-	5062,
-	4956,
-	5062,
-	5062,
-	2883,
-	5062,
-	5062,
-	5062,
-	4956,
-	5062,
-	5062,
-	5062,
-	5062,
-	5062,
-	3990,
-	5062,
-	4884,
-	4956,
-	5062,
-	4956,
-	3990,
-	5062,
-	4884,
-	4956,
-	5062,
-	4956,
+	4507,
+	4507,
+	4411,
+	4507,
+	4507,
+	2569,
+	4507,
+	4507,
+	4507,
+	4411,
+	4507,
+	4507,
+	4507,
+	4507,
+	4507,
+	3630,
+	4507,
+	4342,
+	4411,
+	4507,
+	4411,
+	3630,
+	4507,
+	4342,
+	4411,
+	4507,
+	4411,
+	4507,
+	4507,
+	4507,
+	4507,
+	4507,
+	0,
+	0,
+	6669,
+	4507,
+};
+static const Il2CppTokenRangePair s_rgctxIndices[2] = 
+{
+	{ 0x06000021, { 0, 1 } },
+	{ 0x06000022, { 1, 3 } },
+};
+extern const uint32_t g_rgctx_T_tBA81C17F8CB80DCA168F0E2BAC0BD9BF0FB6C537;
+extern const uint32_t g_rgctx_JsonUtility_FromJson_TisT_tCB9FA026B90384FA214B3CC9DB820EC66E0A70B5_m6AAA251F1DA29B82B37CAE6162C4DBB8E05EBE93;
+extern const uint32_t g_rgctx_T_tCB9FA026B90384FA214B3CC9DB820EC66E0A70B5;
+extern const uint32_t g_rgctx_T_tCB9FA026B90384FA214B3CC9DB820EC66E0A70B5;
+static const Il2CppRGCTXDefinition s_rgctxValues[4] = 
+{
+	{ (Il2CppRGCTXDataType)2, (const void *)&g_rgctx_T_tBA81C17F8CB80DCA168F0E2BAC0BD9BF0FB6C537 },
+	{ (Il2CppRGCTXDataType)3, (const void *)&g_rgctx_JsonUtility_FromJson_TisT_tCB9FA026B90384FA214B3CC9DB820EC66E0A70B5_m6AAA251F1DA29B82B37CAE6162C4DBB8E05EBE93 },
+	{ (Il2CppRGCTXDataType)2, (const void *)&g_rgctx_T_tCB9FA026B90384FA214B3CC9DB820EC66E0A70B5 },
+	{ (Il2CppRGCTXDataType)1, (const void *)&g_rgctx_T_tCB9FA026B90384FA214B3CC9DB820EC66E0A70B5 },
 };
 IL2CPP_EXTERN_C const Il2CppCodeGenModule g_AssemblyU2DCSharp_CodeGenModule;
 const Il2CppCodeGenModule g_AssemblyU2DCSharp_CodeGenModule = 
 {
 	"Assembly-CSharp.dll",
-	27,
+	36,
 	s_methodPointers,
 	0,
 	NULL,
 	s_InvokerIndices,
 	0,
 	NULL,
-	0,
-	NULL,
-	0,
-	NULL,
+	2,
+	s_rgctxIndices,
+	4,
+	s_rgctxValues,
 	NULL,
 	NULL, // module initializer,
 	NULL,
