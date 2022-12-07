@@ -66,23 +66,75 @@ extern void U3CGetRssiDataU3Ed__38_System_Collections_Generic_IEnumeratorU3CSyst
 extern void U3CGetRssiDataU3Ed__38_System_Collections_IEnumerator_Reset_m2F42C8A7B40CD08820101ED7B35FAA35A05B8E82 (void);
 // 0x0000001B System.Object BLE/<GetRssiData>d__38::System.Collections.IEnumerator.get_Current()
 extern void U3CGetRssiDataU3Ed__38_System_Collections_IEnumerator_get_Current_mB1FE5E6BE678A53D8786A1A73F4C3065AACF5B25 (void);
-// 0x0000001C System.Void SetNavigationTarget::Start()
+// 0x0000001C System.Void BLECalibration::Start()
+extern void BLECalibration_Start_m659B126212E688FAAB1A987BFB90D6FA95AA472A (void);
+// 0x0000001D System.Void BLECalibration::Update()
+extern void BLECalibration_Update_m3D0AF02508D9E8A009D5A96546576FC34205A75D (void);
+// 0x0000001E System.Void BLECalibration::OnDestroy()
+extern void BLECalibration_OnDestroy_mE2A3C66B656199112C48B3E0FD205E3B2E338D4B (void);
+// 0x0000001F System.Collections.IEnumerator BLECalibration::UpdateUserPosition()
+extern void BLECalibration_UpdateUserPosition_m402CE4357C4C3E1059F37A91072631E9295274D0 (void);
+// 0x00000020 System.Void BLECalibration::RefreshRssi()
+extern void BLECalibration_RefreshRssi_m67790AB8B8E74BC5ED533ED55243C98DB2395995 (void);
+// 0x00000021 System.Void BLECalibration::SetUserPosition()
+extern void BLECalibration_SetUserPosition_mAA6FA59DBB0C78E8878BF1D1C63748D506E55140 (void);
+// 0x00000022 System.Void BLECalibration::BackToMenu()
+extern void BLECalibration_BackToMenu_m00DCC866C1EDFD6884CA52F8ADBA24B7D19A7153 (void);
+// 0x00000023 System.Void BLECalibration::GoARNavigate()
+extern void BLECalibration_GoARNavigate_m3870E137941EDDB1B1DFFC420152108703DD1E1A (void);
+// 0x00000024 System.Void BLECalibration::.ctor()
+extern void BLECalibration__ctor_m76B1A14745AC172C7F0A79CE7C9EE17996705D80 (void);
+// 0x00000025 System.Void BLECalibration/DestinationData::.ctor()
+extern void DestinationData__ctor_m7E1A1F3A46F367E4F9D1D41E99866C6ADDC9E828 (void);
+// 0x00000026 System.Void BLECalibration/DataSaver::saveData(T,System.String)
+// 0x00000027 T BLECalibration/DataSaver::loadData(System.String)
+// 0x00000028 System.Boolean BLECalibration/DataSaver::deleteData(System.String)
+extern void DataSaver_deleteData_mB43529596D192648C4159313BC57C1DEE87B3E21 (void);
+// 0x00000029 System.Void BLECalibration/DataSaver::.ctor()
+extern void DataSaver__ctor_m82CB9E3C2BECD5D629CA454ED31C4D0C102EE1CF (void);
+// 0x0000002A System.Void BLECalibration/<UpdateUserPosition>d__24::.ctor(System.Int32)
+extern void U3CUpdateUserPositionU3Ed__24__ctor_m7DE5DCE494849CB3AA5604EF0C73CF0DAAC7CFFB (void);
+// 0x0000002B System.Void BLECalibration/<UpdateUserPosition>d__24::System.IDisposable.Dispose()
+extern void U3CUpdateUserPositionU3Ed__24_System_IDisposable_Dispose_m1360C4EA6307BA8EFF02527DB5F3A5350B8F7EC8 (void);
+// 0x0000002C System.Boolean BLECalibration/<UpdateUserPosition>d__24::MoveNext()
+extern void U3CUpdateUserPositionU3Ed__24_MoveNext_m9F0853FDE6E4EA74F94402115E54344E303B7711 (void);
+// 0x0000002D System.Object BLECalibration/<UpdateUserPosition>d__24::System.Collections.Generic.IEnumerator<System.Object>.get_Current()
+extern void U3CUpdateUserPositionU3Ed__24_System_Collections_Generic_IEnumeratorU3CSystem_ObjectU3E_get_Current_mD9CAB8DB51AB157D4931465718C008F23A5B3C46 (void);
+// 0x0000002E System.Void BLECalibration/<UpdateUserPosition>d__24::System.Collections.IEnumerator.Reset()
+extern void U3CUpdateUserPositionU3Ed__24_System_Collections_IEnumerator_Reset_mEC8A77B0E2E25E2CE2779FA485B3E0D653107A2E (void);
+// 0x0000002F System.Object BLECalibration/<UpdateUserPosition>d__24::System.Collections.IEnumerator.get_Current()
+extern void U3CUpdateUserPositionU3Ed__24_System_Collections_IEnumerator_get_Current_m9A07558967C1AB70D1A9694E75D1C26F890FBAF8 (void);
+// 0x00000030 System.Void SetNavigationTarget::Start()
 extern void SetNavigationTarget_Start_m0CFEEDEE4BC72DD7486B429949C561630DED0FB6 (void);
-// 0x0000001D System.Void SetNavigationTarget::NavigateToggle()
+// 0x00000031 System.Void SetNavigationTarget::NavigateToggle()
 extern void SetNavigationTarget_NavigateToggle_m5E49D86BDBE83AE3157A515F4784233F9144F307 (void);
-// 0x0000001E System.Void SetNavigationTarget::Update()
+// 0x00000032 System.Void SetNavigationTarget::Update()
 extern void SetNavigationTarget_Update_m24DD885D08F1EA5725F6B65E56B8706FBC72EF66 (void);
-// 0x0000001F System.Void SetNavigationTarget::.ctor()
+// 0x00000033 System.Void SetNavigationTarget::.ctor()
 extern void SetNavigationTarget__ctor_m40AA3B1240C215E094DE629C3BFAD2C4859E6D18 (void);
-// 0x00000020 System.Void SetNavigationTarget/DestinationData::.ctor()
+// 0x00000034 System.Void SetNavigationTarget/DestinationData::.ctor()
 extern void DestinationData__ctor_mCF492544BD015D58A587EAACC495CB1E03959DD8 (void);
-// 0x00000021 System.Void SetNavigationTarget/DataSaver::saveData(T,System.String)
-// 0x00000022 T SetNavigationTarget/DataSaver::loadData(System.String)
-// 0x00000023 System.Boolean SetNavigationTarget/DataSaver::deleteData(System.String)
+// 0x00000035 System.Void SetNavigationTarget/DataSaver::saveData(T,System.String)
+// 0x00000036 T SetNavigationTarget/DataSaver::loadData(System.String)
+// 0x00000037 System.Boolean SetNavigationTarget/DataSaver::deleteData(System.String)
 extern void DataSaver_deleteData_mBFC1F5649B4F7B78C0796212007D45068B249CB0 (void);
-// 0x00000024 System.Void SetNavigationTarget/DataSaver::.ctor()
+// 0x00000038 System.Void SetNavigationTarget/DataSaver::.ctor()
 extern void DataSaver__ctor_m4CBBEF57B1DAAC6EE2F8F737B4692FC10B7AF8E0 (void);
-static Il2CppMethodPointer s_methodPointers[36] = 
+// 0x00000039 System.Void UnscentedKalmanFilter.UKF::.ctor(System.Int32)
+extern void UKF__ctor_m8D354A1ED892EA5AC0FBBB34C41A010C581E897C (void);
+// 0x0000003A System.Void UnscentedKalmanFilter.UKF::init()
+extern void UKF_init_mFB1D8FFA3F783F006B98D4815BB175893F205C65 (void);
+// 0x0000003B System.Void UnscentedKalmanFilter.UKF::Update(System.Double[])
+extern void UKF_Update_mA354D91BD79F918775504C898BE386BFC58A454D (void);
+// 0x0000003C System.Double[] UnscentedKalmanFilter.UKF::getState()
+extern void UKF_getState_mF7AC3CA0AB1357706F27633BE3AAF4E03F8061D6 (void);
+// 0x0000003D System.Double[,] UnscentedKalmanFilter.UKF::getCovariance()
+extern void UKF_getCovariance_m169ACDA8B74AC1DFAAD091E77B8398FBEF54B6CE (void);
+// 0x0000003E MathNet.Numerics.LinearAlgebra.Matrix`1<System.Double>[] UnscentedKalmanFilter.UKF::UnscentedTransform(MathNet.Numerics.LinearAlgebra.Matrix`1<System.Double>,MathNet.Numerics.LinearAlgebra.Matrix`1<System.Double>,MathNet.Numerics.LinearAlgebra.Matrix`1<System.Double>,System.Int32,MathNet.Numerics.LinearAlgebra.Matrix`1<System.Double>)
+extern void UKF_UnscentedTransform_mE19688643ACCA0EE3CCF39D3D7758CA1B6F929FA (void);
+// 0x0000003F MathNet.Numerics.LinearAlgebra.Matrix`1<System.Double> UnscentedKalmanFilter.UKF::GetSigmaPoints(MathNet.Numerics.LinearAlgebra.Matrix`1<System.Double>,MathNet.Numerics.LinearAlgebra.Matrix`1<System.Double>,System.Double)
+extern void UKF_GetSigmaPoints_mA993204F62BF1FACFC44B86AD728D430B9B0A845 (void);
+static Il2CppMethodPointer s_methodPointers[63] = 
 {
 	BLE_Start_mE3B9DA59A6C12CDB0A7203E2802D97820949FB1B,
 	BLE_Update_m9B1C8E67505927D8C1868F4856DB161D4826EAFF,
@@ -111,6 +163,26 @@ static Il2CppMethodPointer s_methodPointers[36] =
 	U3CGetRssiDataU3Ed__38_System_Collections_Generic_IEnumeratorU3CSystem_ObjectU3E_get_Current_m3133C004B203342E58241F170F2B338F2736C3BE,
 	U3CGetRssiDataU3Ed__38_System_Collections_IEnumerator_Reset_m2F42C8A7B40CD08820101ED7B35FAA35A05B8E82,
 	U3CGetRssiDataU3Ed__38_System_Collections_IEnumerator_get_Current_mB1FE5E6BE678A53D8786A1A73F4C3065AACF5B25,
+	BLECalibration_Start_m659B126212E688FAAB1A987BFB90D6FA95AA472A,
+	BLECalibration_Update_m3D0AF02508D9E8A009D5A96546576FC34205A75D,
+	BLECalibration_OnDestroy_mE2A3C66B656199112C48B3E0FD205E3B2E338D4B,
+	BLECalibration_UpdateUserPosition_m402CE4357C4C3E1059F37A91072631E9295274D0,
+	BLECalibration_RefreshRssi_m67790AB8B8E74BC5ED533ED55243C98DB2395995,
+	BLECalibration_SetUserPosition_mAA6FA59DBB0C78E8878BF1D1C63748D506E55140,
+	BLECalibration_BackToMenu_m00DCC866C1EDFD6884CA52F8ADBA24B7D19A7153,
+	BLECalibration_GoARNavigate_m3870E137941EDDB1B1DFFC420152108703DD1E1A,
+	BLECalibration__ctor_m76B1A14745AC172C7F0A79CE7C9EE17996705D80,
+	DestinationData__ctor_m7E1A1F3A46F367E4F9D1D41E99866C6ADDC9E828,
+	NULL,
+	NULL,
+	DataSaver_deleteData_mB43529596D192648C4159313BC57C1DEE87B3E21,
+	DataSaver__ctor_m82CB9E3C2BECD5D629CA454ED31C4D0C102EE1CF,
+	U3CUpdateUserPositionU3Ed__24__ctor_m7DE5DCE494849CB3AA5604EF0C73CF0DAAC7CFFB,
+	U3CUpdateUserPositionU3Ed__24_System_IDisposable_Dispose_m1360C4EA6307BA8EFF02527DB5F3A5350B8F7EC8,
+	U3CUpdateUserPositionU3Ed__24_MoveNext_m9F0853FDE6E4EA74F94402115E54344E303B7711,
+	U3CUpdateUserPositionU3Ed__24_System_Collections_Generic_IEnumeratorU3CSystem_ObjectU3E_get_Current_mD9CAB8DB51AB157D4931465718C008F23A5B3C46,
+	U3CUpdateUserPositionU3Ed__24_System_Collections_IEnumerator_Reset_mEC8A77B0E2E25E2CE2779FA485B3E0D653107A2E,
+	U3CUpdateUserPositionU3Ed__24_System_Collections_IEnumerator_get_Current_m9A07558967C1AB70D1A9694E75D1C26F890FBAF8,
 	SetNavigationTarget_Start_m0CFEEDEE4BC72DD7486B429949C561630DED0FB6,
 	SetNavigationTarget_NavigateToggle_m5E49D86BDBE83AE3157A515F4784233F9144F307,
 	SetNavigationTarget_Update_m24DD885D08F1EA5725F6B65E56B8706FBC72EF66,
@@ -120,57 +192,101 @@ static Il2CppMethodPointer s_methodPointers[36] =
 	NULL,
 	DataSaver_deleteData_mBFC1F5649B4F7B78C0796212007D45068B249CB0,
 	DataSaver__ctor_m4CBBEF57B1DAAC6EE2F8F737B4692FC10B7AF8E0,
+	UKF__ctor_m8D354A1ED892EA5AC0FBBB34C41A010C581E897C,
+	UKF_init_mFB1D8FFA3F783F006B98D4815BB175893F205C65,
+	UKF_Update_mA354D91BD79F918775504C898BE386BFC58A454D,
+	UKF_getState_mF7AC3CA0AB1357706F27633BE3AAF4E03F8061D6,
+	UKF_getCovariance_m169ACDA8B74AC1DFAAD091E77B8398FBEF54B6CE,
+	UKF_UnscentedTransform_mE19688643ACCA0EE3CCF39D3D7758CA1B6F929FA,
+	UKF_GetSigmaPoints_mA993204F62BF1FACFC44B86AD728D430B9B0A845,
 };
-static const int32_t s_InvokerIndices[36] = 
+static const int32_t s_InvokerIndices[63] = 
 {
-	4507,
-	4507,
-	4411,
-	4507,
-	4507,
-	2569,
-	4507,
-	4507,
-	4507,
-	4411,
-	4507,
-	4507,
-	4507,
-	4507,
-	4507,
-	3630,
-	4507,
-	4342,
-	4411,
-	4507,
-	4411,
-	3630,
-	4507,
-	4342,
-	4411,
-	4507,
-	4411,
-	4507,
-	4507,
-	4507,
-	4507,
-	4507,
+	4497,
+	4497,
+	4401,
+	4497,
+	4497,
+	2619,
+	4497,
+	4497,
+	4497,
+	4401,
+	4497,
+	4497,
+	4497,
+	4497,
+	4497,
+	3665,
+	4497,
+	4332,
+	4401,
+	4497,
+	4401,
+	3665,
+	4497,
+	4332,
+	4401,
+	4497,
+	4401,
+	4497,
+	4497,
+	4497,
+	4401,
+	4497,
+	4497,
+	4497,
+	4497,
+	4497,
+	4497,
 	0,
 	0,
-	6669,
-	4507,
+	6901,
+	4497,
+	3665,
+	4497,
+	4332,
+	4401,
+	4497,
+	4401,
+	4497,
+	4497,
+	4497,
+	4497,
+	4497,
+	0,
+	0,
+	6901,
+	4497,
+	3665,
+	4497,
+	3685,
+	4401,
+	4401,
+	352,
+	959,
 };
-static const Il2CppTokenRangePair s_rgctxIndices[2] = 
+static const Il2CppTokenRangePair s_rgctxIndices[4] = 
 {
-	{ 0x06000021, { 0, 1 } },
-	{ 0x06000022, { 1, 3 } },
+	{ 0x06000026, { 0, 1 } },
+	{ 0x06000027, { 1, 3 } },
+	{ 0x06000035, { 4, 1 } },
+	{ 0x06000036, { 5, 3 } },
 };
+extern const uint32_t g_rgctx_T_t8BD899AD520443657589FE37ECA441FB7BA50939;
+extern const uint32_t g_rgctx_JsonUtility_FromJson_TisT_t8E0B5EBEA71B1AE6C70447C054CF8E34BE0BAA8E_mB6318CE9B0725DB8CF70F0DC516EDE4FB4C474A4;
+extern const uint32_t g_rgctx_T_t8E0B5EBEA71B1AE6C70447C054CF8E34BE0BAA8E;
+extern const uint32_t g_rgctx_T_t8E0B5EBEA71B1AE6C70447C054CF8E34BE0BAA8E;
 extern const uint32_t g_rgctx_T_tBA81C17F8CB80DCA168F0E2BAC0BD9BF0FB6C537;
 extern const uint32_t g_rgctx_JsonUtility_FromJson_TisT_tCB9FA026B90384FA214B3CC9DB820EC66E0A70B5_m6AAA251F1DA29B82B37CAE6162C4DBB8E05EBE93;
 extern const uint32_t g_rgctx_T_tCB9FA026B90384FA214B3CC9DB820EC66E0A70B5;
 extern const uint32_t g_rgctx_T_tCB9FA026B90384FA214B3CC9DB820EC66E0A70B5;
-static const Il2CppRGCTXDefinition s_rgctxValues[4] = 
+static const Il2CppRGCTXDefinition s_rgctxValues[8] = 
 {
+	{ (Il2CppRGCTXDataType)2, (const void *)&g_rgctx_T_t8BD899AD520443657589FE37ECA441FB7BA50939 },
+	{ (Il2CppRGCTXDataType)3, (const void *)&g_rgctx_JsonUtility_FromJson_TisT_t8E0B5EBEA71B1AE6C70447C054CF8E34BE0BAA8E_mB6318CE9B0725DB8CF70F0DC516EDE4FB4C474A4 },
+	{ (Il2CppRGCTXDataType)2, (const void *)&g_rgctx_T_t8E0B5EBEA71B1AE6C70447C054CF8E34BE0BAA8E },
+	{ (Il2CppRGCTXDataType)1, (const void *)&g_rgctx_T_t8E0B5EBEA71B1AE6C70447C054CF8E34BE0BAA8E },
 	{ (Il2CppRGCTXDataType)2, (const void *)&g_rgctx_T_tBA81C17F8CB80DCA168F0E2BAC0BD9BF0FB6C537 },
 	{ (Il2CppRGCTXDataType)3, (const void *)&g_rgctx_JsonUtility_FromJson_TisT_tCB9FA026B90384FA214B3CC9DB820EC66E0A70B5_m6AAA251F1DA29B82B37CAE6162C4DBB8E05EBE93 },
 	{ (Il2CppRGCTXDataType)2, (const void *)&g_rgctx_T_tCB9FA026B90384FA214B3CC9DB820EC66E0A70B5 },
@@ -180,16 +296,16 @@ IL2CPP_EXTERN_C const Il2CppCodeGenModule g_AssemblyU2DCSharp_CodeGenModule;
 const Il2CppCodeGenModule g_AssemblyU2DCSharp_CodeGenModule = 
 {
 	"Assembly-CSharp.dll",
-	36,
+	63,
 	s_methodPointers,
 	0,
 	NULL,
 	s_InvokerIndices,
 	0,
 	NULL,
-	2,
-	s_rgctxIndices,
 	4,
+	s_rgctxIndices,
+	8,
 	s_rgctxValues,
 	NULL,
 	NULL, // module initializer,

@@ -240,8 +240,8 @@ public class PluginActivity extends UnityPlayerActivity {
             return Math.pow(ratio, 10);
         } else {
             double distance;
-            distance = (0.89976) * Math.pow(ratio, 7.7095) + 0.111;
-            // distance = Math.pow(10, (-rssi + txPower) / (10 * 2));
+            //distance = (0.89976) * Math.pow(ratio, 7.7095) + 0.111;
+            distance = Math.pow(10, (-rssi + txPower) / (10 * 2));
             // if (distance < Threshold)
             return distance;
             // else
