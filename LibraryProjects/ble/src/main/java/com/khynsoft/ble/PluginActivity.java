@@ -26,6 +26,7 @@ import androidx.core.app.ActivityCompat;
 
 import com.khynsoft.ble.trilateration.NonLinearLeastSquaresSolver;
 import com.khynsoft.ble.trilateration.TrilaterationFunction;
+import com.khynsoft.ble.vanillable.KalmanFilter;
 import com.khynsoft.ble.vanillable.RSSISmoother;
 
 import org.apache.commons.math3.fitting.leastsquares.LeastSquaresOptimizer;
@@ -45,13 +46,6 @@ public class PluginActivity extends UnityPlayerActivity {
     private static int rssi3 = 0;
     private static int rssi4 = 0;
 
-    private static int txPower1 = 0;
-    private static int txPower2 = 0;
-    private static int txPower3 = 0;
-    private static int txPower4 = 0;
-
-    private double nFactor = 2.5;
-
     private boolean isScanningStarted = false;
 
     private final double[] posBeacon1 = new double[2];
@@ -70,6 +64,11 @@ public class PluginActivity extends UnityPlayerActivity {
     RSSISmoother smoothRssi2 = new RSSISmoother();
     RSSISmoother smoothRssi3 = new RSSISmoother();
     RSSISmoother smoothRssi4 = new RSSISmoother();
+
+    KalmanFilter kf1 = new KalmanFilter(0.008, 0.1);
+    KalmanFilter kf2 = new KalmanFilter(0.008, 0.1);
+    KalmanFilter kf3 = new KalmanFilter(0.008, 0.1);
+    KalmanFilter kf4 = new KalmanFilter(0.008, 0.1);
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -139,19 +138,15 @@ public class PluginActivity extends UnityPlayerActivity {
                 switch (device.toString()) {
                     case "E8:04:2B:72:66:40":
                         rssi1 = result.getRssi();
-                        txPower1 = result.getTxPower();
                         break;
                     case "F3:C9:5C:B3:60:BD":
                         rssi2 = result.getRssi();
-                        txPower2 = result.getTxPower();
                         break;
                     case "D1:8A:3C:8D:55:3F":
                         rssi3 = result.getRssi();
-                        txPower3 = result.getTxPower();
                         break;
                     case "FD:01:70:44:9D:5F":
                         rssi4 = result.getRssi();
-                        txPower4 = result.getTxPower();
                         break;
                 }
             } else {
@@ -249,21 +244,17 @@ public class PluginActivity extends UnityPlayerActivity {
         }
     }
 
-    public void setNFactor(double n) {
-        this.nFactor = n;
-    }
-
     public double getDistance1() {
-        return getDistance(rssi1, -59);
+        return getDistance(getFilteredRssi(1), -59);
     }
     public double getDistance2() {
-        return getDistance(rssi2, -59);
+        return getDistance(getFilteredRssi(2), -59);
     }
     public double getDistance3() {
-        return getDistance(rssi3, -59);
+        return getDistance(getFilteredRssi(3), -59);
     }
     public double getDistance4() {
-        return getDistance(rssi4, -59);
+        return getDistance(getFilteredRssi(4), -59);
     }
 
     public int getSmoothRssi(int beaconNum) {
@@ -272,6 +263,16 @@ public class PluginActivity extends UnityPlayerActivity {
             case 2: return smoothRssi2.getFilteredRssi(rssi2);
             case 3: return smoothRssi3.getFilteredRssi(rssi3);
             case 4: return smoothRssi4.getFilteredRssi(rssi4);
+        }
+        return 0;
+    }
+
+    public double getFilteredRssi(int beaconNum) {
+        switch(beaconNum) {
+            case 1: return kf1.filter(rssi1);
+            case 2: return kf2.filter(rssi2);
+            case 3: return kf3.filter(rssi3);
+            case 4: return kf4.filter(rssi4);
         }
         return 0;
     }

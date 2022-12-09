@@ -1,22 +1,17 @@
 
 
+using Assets.Scripts;
 using System;
 using System.Collections;
 using System.IO;
 using System.Text;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnscentedKalmanFilter;
 
 public class BLECalibration : MonoBehaviour
 {
-    [SerializeField] public class DestinationData
-    {
-        public float x = 0;
-        public float y = 0;
-        public float z = 0;
-    }
-
     [SerializeField] GameObject objUserDestination;
     [SerializeField] GameObject objUserPosition;
 
@@ -24,6 +19,12 @@ public class BLECalibration : MonoBehaviour
     [SerializeField] GameObject objBeacon2;
     [SerializeField] GameObject objBeacon3;
     [SerializeField] GameObject objBeacon4;
+
+    [SerializeField] Button btnStartNavigation;
+    [SerializeField] Button btnConfirmPosition;
+    [SerializeField] Button btnConfirmDestination;
+
+    [SerializeField] TMPro.TMP_Text txtWaitLabel;
 
     private double posBeacon1X;
     private double posBeacon1Y;
@@ -37,19 +38,38 @@ public class BLECalibration : MonoBehaviour
     private double posBeacon4X;
     private double posBeacon4Y;
 
-    
     private float rssi1 = -59;
     private float rssi2 = -59;
     private float rssi3 = -59;
     private float rssi4 = -59;
 
-    UKF kf;
+    private double frssi1 = -59;
+    private double frssi2 = -59;
+    private double frssi3 = -59;
+    private double frssi4 = -59;
+
+    bool isConfirmedPosition = false;
+    bool isConfirmedDestination = false;
+
+    bool isConfirmPositionVisible = false;
+
+    int elipsisCounter = 0;
 
     AndroidJavaObject _pluginActivity;
 
     // Start is called before the first frame update
     void Start()
     {
+        CalibrationData loadedData = DataSaver.loadData<CalibrationData>("CalibrationData");
+        if (loadedData != null)
+        {
+            objUserDestination.transform.localPosition = new Vector3(loadedData.dx, loadedData.dy, loadedData.dz);
+        }
+
+        btnStartNavigation.gameObject.SetActive(false);
+        btnConfirmPosition.gameObject.SetActive(false);
+        btnConfirmDestination.gameObject.SetActive(false);
+
         _pluginActivity = new AndroidJavaObject("com.khynsoft.ble.PluginActivity");
 
         posBeacon1X = objBeacon1.transform.localPosition.x;
@@ -69,27 +89,68 @@ public class BLECalibration : MonoBehaviour
         _pluginActivity.Call("setPosBeacon3", posBeacon3X, posBeacon3Y);
         _pluginActivity.Call("setPosBeacon4", posBeacon4X, posBeacon4Y);
 
-        kf = new UKF();
-
         StartCoroutine(UpdateUserPosition());
+        StartCoroutine(CalibrateWaitIndicator());
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        if(isConfirmedDestination & isConfirmedPosition)
+        {
+            btnStartNavigation.gameObject.SetActive(true);
+        }
     }
 
     public void OnDestroy()
     {
         StopCoroutine(UpdateUserPosition());
+        StopCoroutine(CalibrateWaitIndicator());
+    }
+
+    int counter = 10;
+    IEnumerator CalibrateWaitIndicator()
+    {
+        string dot = "";
+        for (int x = 0; x < elipsisCounter; x++)
+        {
+            dot += ".";
+        }
+        if (elipsisCounter == 3)
+        {
+            elipsisCounter = 0;
+        }
+        else
+        {
+            elipsisCounter++;
+        }
+        if (counter > 0)
+        {
+            txtWaitLabel.text = "Calibrating your position"+ dot + "\nPlease wait for "+ counter +"s or more.";
+            counter--;
+        } else
+        {
+            txtWaitLabel.text = "Your position should be calibrated.\nAwaiting positions' confirmation" + dot;
+            if (!isConfirmPositionVisible)
+            {
+                btnConfirmPosition.gameObject.SetActive(true);
+                isConfirmPositionVisible = true;
+            }
+        }
+        yield return new WaitForSeconds(1f);
+        StartCoroutine(CalibrateWaitIndicator());
     }
 
     IEnumerator UpdateUserPosition()
     {
-        RefreshRssi();
-        SetUserPosition();
-        yield return new WaitForSecondsRealtime(.5f);
+        RefreshFilteredRssi();
+
+        if(!isConfirmedPosition)
+        {
+            SetUserPosition();
+        }
+
+        yield return new WaitForSeconds(.5f);
         StartCoroutine(UpdateUserPosition());
     }
     void RefreshRssi()
@@ -100,6 +161,17 @@ public class BLECalibration : MonoBehaviour
             rssi2 = _pluginActivity.Call<int>("getRssi2");
             rssi3 = _pluginActivity.Call<int>("getRssi3");
             rssi4 = _pluginActivity.Call<int>("getRssi4");
+        }
+    }
+
+    public void RefreshFilteredRssi()
+    {
+        if (_pluginActivity != null)
+        {
+            frssi1 = _pluginActivity.Call<double>("getSmoothRssi", 1);
+            frssi2 = _pluginActivity.Call<double>("getSmoothRssi", 2);
+            frssi3 = _pluginActivity.Call<double>("getSmoothRssi", 3);
+            frssi4 = _pluginActivity.Call<double>("getSmoothRssi", 4);
         }
     }
 
@@ -121,114 +193,30 @@ public class BLECalibration : MonoBehaviour
     public void GoARNavigate()
     {
         SceneManager.LoadScene("Navigation");
+
+        CalibrationData data = new CalibrationData();
+        data.dx = objUserDestination.transform.position.x;
+        data.dy = objUserDestination.transform.position.y;
+        data.dz = objUserDestination.transform.position.z;
+
+        data.ux = objUserDestination.transform.position.x;
+        data.uy = objUserDestination.transform.position.y;
+        data.uz = objUserDestination.transform.position.z;
+
+        DataSaver.saveData(data, "CalibrationData");
     }
 
-    public class DataSaver
+    public void ConfirmPosition()
     {
-        //Save Data
-        public static void saveData<T>(T dataToSave, string dataFileName)
-        {
-            string tempPath = Path.Combine(Application.persistentDataPath, "data");
-            tempPath = Path.Combine(tempPath, dataFileName + ".txt");
-
-            //Convert To Json then to bytes
-            string jsonData = JsonUtility.ToJson(dataToSave, true);
-            byte[] jsonByte = Encoding.ASCII.GetBytes(jsonData);
-
-            //Create Directory if it does not exist
-            if (!Directory.Exists(Path.GetDirectoryName(tempPath)))
-            {
-                Directory.CreateDirectory(Path.GetDirectoryName(tempPath));
-            }
-            //Debug.Log(path);
-
-            try
-            {
-                File.WriteAllBytes(tempPath, jsonByte);
-                Debug.Log("Saved Data to: " + tempPath.Replace("/", "\\"));
-            }
-            catch (Exception e)
-            {
-                Debug.LogWarning("Failed To PlayerInfo Data to: " + tempPath.Replace("/", "\\"));
-                Debug.LogWarning("Error: " + e.Message);
-            }
-        }
-
-        //Load Data
-        public static T loadData<T>(string dataFileName)
-        {
-            string tempPath = Path.Combine(Application.persistentDataPath, "data");
-            tempPath = Path.Combine(tempPath, dataFileName + ".txt");
-
-            //Exit if Directory or File does not exist
-            if (!Directory.Exists(Path.GetDirectoryName(tempPath)))
-            {
-                Debug.LogWarning("Directory does not exist");
-                return default(T);
-            }
-
-            if (!File.Exists(tempPath))
-            {
-                Debug.Log("File does not exist");
-                return default(T);
-            }
-
-            //Load saved Json
-            byte[] jsonByte = null;
-            try
-            {
-                jsonByte = File.ReadAllBytes(tempPath);
-                Debug.Log("Loaded Data from: " + tempPath.Replace("/", "\\"));
-            }
-            catch (Exception e)
-            {
-                Debug.LogWarning("Failed To Load Data from: " + tempPath.Replace("/", "\\"));
-                Debug.LogWarning("Error: " + e.Message);
-            }
-
-            //Convert to json string
-            string jsonData = Encoding.ASCII.GetString(jsonByte);
-
-            //Convert to Object
-            object resultValue = JsonUtility.FromJson<T>(jsonData);
-            return (T)Convert.ChangeType(resultValue, typeof(T));
-        }
-
-        public static bool deleteData(string dataFileName)
-        {
-            bool success = false;
-
-            //Load Data
-            string tempPath = Path.Combine(Application.persistentDataPath, "data");
-            tempPath = Path.Combine(tempPath, dataFileName + ".txt");
-
-            //Exit if Directory or File does not exist
-            if (!Directory.Exists(Path.GetDirectoryName(tempPath)))
-            {
-                Debug.LogWarning("Directory does not exist");
-                return false;
-            }
-
-            if (!File.Exists(tempPath))
-            {
-                Debug.Log("File does not exist");
-                return false;
-            }
-
-            try
-            {
-                File.Delete(tempPath);
-                Debug.Log("Data deleted from: " + tempPath.Replace("/", "\\"));
-                success = true;
-            }
-            catch (Exception e)
-            {
-                Debug.LogWarning("Failed To Delete Data: " + e.Message);
-            }
-
-            return success;
-        }
+        isConfirmedPosition = true;
+        btnConfirmPosition.gameObject.SetActive(false);
+        btnConfirmDestination.gameObject.SetActive(true);
     }
 
+    public void ConfirmDestination()
+    {
+        isConfirmedDestination = true;
+        btnConfirmDestination.gameObject.SetActive(false);
+    }
 
 }
