@@ -229,6 +229,8 @@ public class PluginActivity extends UnityPlayerActivity {
     }
 
     public static double getDistance(double rssi, double txPower) {
+        if(rssi < -90) rssi = -90;
+
         double ratio;
         ratio = rssi / txPower;//from   ww  w. j a  va  2 s.c  o  m
         if (ratio < 1.0) {

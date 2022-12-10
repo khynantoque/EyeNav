@@ -137,7 +137,7 @@ public class BLECalibration : MonoBehaviour
                 isConfirmPositionVisible = true;
             }
         }
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSecondsRealtime(1f);
         StartCoroutine(CalibrateWaitIndicator());
     }
 
@@ -150,7 +150,7 @@ public class BLECalibration : MonoBehaviour
             SetUserPosition();
         }
 
-        yield return new WaitForSeconds(.5f);
+        yield return new WaitForSecondsRealtime(.5f);
         StartCoroutine(UpdateUserPosition());
     }
     void RefreshRssi()
@@ -168,10 +168,10 @@ public class BLECalibration : MonoBehaviour
     {
         if (_pluginActivity != null)
         {
-            frssi1 = _pluginActivity.Call<double>("getSmoothRssi", 1);
-            frssi2 = _pluginActivity.Call<double>("getSmoothRssi", 2);
-            frssi3 = _pluginActivity.Call<double>("getSmoothRssi", 3);
-            frssi4 = _pluginActivity.Call<double>("getSmoothRssi", 4);
+            frssi1 = _pluginActivity.Call<double>("getFilteredRssi", 1);
+            frssi2 = _pluginActivity.Call<double>("getFilteredRssi", 2);
+            frssi3 = _pluginActivity.Call<double>("getFilteredRssi", 3);
+            frssi4 = _pluginActivity.Call<double>("getFilteredRssi", 4);
         }
     }
 
