@@ -58,32 +58,32 @@ extern void CameraRaycastHelper_RaycastTry2D_Injected_m2620821FE8CB793C314AAE43E
 extern void Input_GetKeyInt_m2FFCC49AF36B74247CC1B412E9787A15D0984E95 (void);
 // 0x00000017 System.Boolean UnityEngine.Input::GetKeyUpInt(UnityEngine.KeyCode)
 extern void Input_GetKeyUpInt_mB26B433DD3A21ACAF04D23252B09068EFFEDA0F9 (void);
-// 0x00000018 System.Boolean UnityEngine.Input::GetKeyUpString(System.String)
-extern void Input_GetKeyUpString_m2CBE1E7702D8CE4B62EF79A82D18B1A8426499F9 (void);
-// 0x00000019 System.Boolean UnityEngine.Input::GetKeyDownInt(UnityEngine.KeyCode)
+// 0x00000018 System.Boolean UnityEngine.Input::GetKeyDownInt(UnityEngine.KeyCode)
 extern void Input_GetKeyDownInt_m0B655F969FCBC011BC2616E3E5A657CF7D76568A (void);
-// 0x0000001A System.Single UnityEngine.Input::GetAxis(System.String)
+// 0x00000019 System.Single UnityEngine.Input::GetAxis(System.String)
 extern void Input_GetAxis_m10372E6C5FF591668D2DC5F58C58D213CC598A62 (void);
-// 0x0000001B System.Single UnityEngine.Input::GetAxisRaw(System.String)
+// 0x0000001A System.Single UnityEngine.Input::GetAxisRaw(System.String)
 extern void Input_GetAxisRaw_m47C0CF8E090561A2F407A4E11D5F2A45044EB8E4 (void);
-// 0x0000001C System.Boolean UnityEngine.Input::GetButtonDown(System.String)
+// 0x0000001B System.Boolean UnityEngine.Input::GetButtonDown(System.String)
 extern void Input_GetButtonDown_mEF5F80C9E8F04104E807D9CBD6F70CDB98751579 (void);
-// 0x0000001D System.Boolean UnityEngine.Input::GetMouseButton(System.Int32)
+// 0x0000001C System.Boolean UnityEngine.Input::GetMouseButton(System.Int32)
 extern void Input_GetMouseButton_m4995DD4A2D4F916565C1B1B5AAF7DF17C126B3EA (void);
-// 0x0000001E System.Boolean UnityEngine.Input::GetMouseButtonDown(System.Int32)
+// 0x0000001D System.Boolean UnityEngine.Input::GetMouseButtonDown(System.Int32)
 extern void Input_GetMouseButtonDown_m8DFC792D15FFF15D311614D5CC6C5D055E5A1DE3 (void);
-// 0x0000001F System.Boolean UnityEngine.Input::GetMouseButtonUp(System.Int32)
+// 0x0000001E System.Boolean UnityEngine.Input::GetMouseButtonUp(System.Int32)
 extern void Input_GetMouseButtonUp_mBE89CC9C69BBEA9A863819E77EA54411B0476ED6 (void);
+// 0x0000001F System.String[] UnityEngine.Input::GetJoystickNames()
+extern void Input_GetJoystickNames_m506FC5C5D06CE7A15EBB9ACEC9DCF546E2DDCC0B (void);
 // 0x00000020 UnityEngine.Touch UnityEngine.Input::GetTouch(System.Int32)
 extern void Input_GetTouch_m75D99FE801A94279874FA8DC6B6ADAD35F5123B1 (void);
 // 0x00000021 System.Boolean UnityEngine.Input::GetKey(UnityEngine.KeyCode)
 extern void Input_GetKey_mE5681EF775F3CEBA7EAD7C63984F7B34C8E8D434 (void);
 // 0x00000022 System.Boolean UnityEngine.Input::GetKeyUp(UnityEngine.KeyCode)
 extern void Input_GetKeyUp_m9A962E395811A9901E7E05F267E198A533DBEF2F (void);
-// 0x00000023 System.Boolean UnityEngine.Input::GetKeyUp(System.String)
-extern void Input_GetKeyUp_m504C6CF9A40BD840964AD0495266CD003676289E (void);
-// 0x00000024 System.Boolean UnityEngine.Input::GetKeyDown(UnityEngine.KeyCode)
+// 0x00000023 System.Boolean UnityEngine.Input::GetKeyDown(UnityEngine.KeyCode)
 extern void Input_GetKeyDown_mB237DEA6244132670D38990BAB77D813FBB028D2 (void);
+// 0x00000024 System.Boolean UnityEngine.Input::get_anyKeyDown()
+extern void Input_get_anyKeyDown_m9B8D98B5574A2AA63CEED98FBF0E2A1D946BCA71 (void);
 // 0x00000025 UnityEngine.Vector3 UnityEngine.Input::get_mousePosition()
 extern void Input_get_mousePosition_mFF21FBD2647DAE2A23BD4C45571CA95D05A0A42C (void);
 // 0x00000026 UnityEngine.Vector2 UnityEngine.Input::get_mouseScrollDelta()
@@ -157,7 +157,6 @@ static Il2CppMethodPointer s_methodPointers[60] =
 	CameraRaycastHelper_RaycastTry2D_Injected_m2620821FE8CB793C314AAE43E3B4C7BEAE5D4C9E,
 	Input_GetKeyInt_m2FFCC49AF36B74247CC1B412E9787A15D0984E95,
 	Input_GetKeyUpInt_mB26B433DD3A21ACAF04D23252B09068EFFEDA0F9,
-	Input_GetKeyUpString_m2CBE1E7702D8CE4B62EF79A82D18B1A8426499F9,
 	Input_GetKeyDownInt_m0B655F969FCBC011BC2616E3E5A657CF7D76568A,
 	Input_GetAxis_m10372E6C5FF591668D2DC5F58C58D213CC598A62,
 	Input_GetAxisRaw_m47C0CF8E090561A2F407A4E11D5F2A45044EB8E4,
@@ -165,11 +164,12 @@ static Il2CppMethodPointer s_methodPointers[60] =
 	Input_GetMouseButton_m4995DD4A2D4F916565C1B1B5AAF7DF17C126B3EA,
 	Input_GetMouseButtonDown_m8DFC792D15FFF15D311614D5CC6C5D055E5A1DE3,
 	Input_GetMouseButtonUp_mBE89CC9C69BBEA9A863819E77EA54411B0476ED6,
+	Input_GetJoystickNames_m506FC5C5D06CE7A15EBB9ACEC9DCF546E2DDCC0B,
 	Input_GetTouch_m75D99FE801A94279874FA8DC6B6ADAD35F5123B1,
 	Input_GetKey_mE5681EF775F3CEBA7EAD7C63984F7B34C8E8D434,
 	Input_GetKeyUp_m9A962E395811A9901E7E05F267E198A533DBEF2F,
-	Input_GetKeyUp_m504C6CF9A40BD840964AD0495266CD003676289E,
 	Input_GetKeyDown_mB237DEA6244132670D38990BAB77D813FBB028D2,
+	Input_get_anyKeyDown_m9B8D98B5574A2AA63CEED98FBF0E2A1D946BCA71,
 	Input_get_mousePosition_mFF21FBD2647DAE2A23BD4C45571CA95D05A0A42C,
 	Input_get_mouseScrollDelta_mD112408E9182AA0F529179FF31E21D8DCD5CFA74,
 	Input_get_imeCompositionMode_mAD9C0224B3845A9132D4265AF468FF203AA43BAC,
@@ -236,66 +236,66 @@ static Il2CppTokenAdjustorThunkPair s_adjustorThunks[18] =
 };
 static const int32_t s_InvokerIndices[60] = 
 {
-	4821,
-	4933,
-	4133,
-	4933,
-	4133,
-	4933,
-	4133,
-	4885,
-	4821,
-	4821,
-	4885,
-	4885,
-	4821,
-	4885,
-	4885,
-	4885,
-	4885,
-	5925,
-	5925,
-	5903,
-	5903,
-	7504,
-	7504,
-	7507,
-	7504,
-	7764,
-	7764,
-	7507,
-	7504,
-	7504,
-	7504,
-	7793,
-	7504,
-	7504,
-	7507,
-	7504,
-	7992,
-	7991,
-	7954,
-	7865,
-	7963,
-	7991,
-	7878,
-	7941,
-	7954,
-	7941,
-	7941,
-	7280,
-	7854,
-	7854,
-	7854,
-	7854,
-	7994,
-	7994,
-	7865,
-	7287,
-	7994,
-	4058,
-	7526,
-	6883,
+	5024,
+	5138,
+	4281,
+	5138,
+	4281,
+	5138,
+	4281,
+	5090,
+	5024,
+	5024,
+	5090,
+	5090,
+	5024,
+	5090,
+	5090,
+	5090,
+	5090,
+	6162,
+	6162,
+	6140,
+	6140,
+	7776,
+	7776,
+	7776,
+	8042,
+	8042,
+	7779,
+	7776,
+	7776,
+	7776,
+	8246,
+	8071,
+	7776,
+	7776,
+	7776,
+	8224,
+	8277,
+	8276,
+	8237,
+	8146,
+	8246,
+	8276,
+	8160,
+	8224,
+	8237,
+	8224,
+	8224,
+	7548,
+	8135,
+	8135,
+	8135,
+	8135,
+	8279,
+	8279,
+	8146,
+	7555,
+	8279,
+	4204,
+	7798,
+	7144,
 };
 IL2CPP_EXTERN_C const Il2CppCodeGenModule g_UnityEngine_InputLegacyModule_CodeGenModule;
 const Il2CppCodeGenModule g_UnityEngine_InputLegacyModule_CodeGenModule = 

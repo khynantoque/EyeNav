@@ -1564,23 +1564,23 @@ struct Polynomial_t95249E79A427AD74FE2F9644DAC01215D28F221F  : public RuntimeObj
 struct Random_t79716069EDE67D1D7734F60AE402D0CA3FB6B4C8  : public RuntimeObject
 {
 	// System.Int32 System.Random::_inext
-	int32_t ____inext_0;
+	int32_t ____inext_3;
 	// System.Int32 System.Random::_inextp
-	int32_t ____inextp_1;
+	int32_t ____inextp_4;
 	// System.Int32[] System.Random::_seedArray
-	Int32U5BU5D_t19C97395396A72ECAF310612F0760F165060314C* ____seedArray_2;
+	Int32U5BU5D_t19C97395396A72ECAF310612F0760F165060314C* ____seedArray_5;
 };
 
 struct Random_t79716069EDE67D1D7734F60AE402D0CA3FB6B4C8_StaticFields
 {
 	// System.Random System.Random::s_globalRandom
-	Random_t79716069EDE67D1D7734F60AE402D0CA3FB6B4C8* ___s_globalRandom_4;
+	Random_t79716069EDE67D1D7734F60AE402D0CA3FB6B4C8* ___s_globalRandom_7;
 };
 
 struct Random_t79716069EDE67D1D7734F60AE402D0CA3FB6B4C8_ThreadStaticFields
 {
 	// System.Random System.Random::t_threadRandom
-	Random_t79716069EDE67D1D7734F60AE402D0CA3FB6B4C8* ___t_threadRandom_3;
+	Random_t79716069EDE67D1D7734F60AE402D0CA3FB6B4C8* ___t_threadRandom_6;
 };
 
 // MathNet.Numerics.Optimization.ScalarMinimizationResult
@@ -2842,9 +2842,9 @@ struct OSPlatform_t8D6BF4B4756716D5B2694BCA813A49AE0227B9F9_marshaled_com
 struct RandomSource_tAFDA2EA95D499ACEF522F573F562E4B4B9D02E1E  : public Random_t79716069EDE67D1D7734F60AE402D0CA3FB6B4C8
 {
 	// System.Boolean MathNet.Numerics.Random.RandomSource::_threadSafe
-	bool ____threadSafe_5;
+	bool ____threadSafe_8;
 	// System.Object MathNet.Numerics.Random.RandomSource::_lock
-	RuntimeObject* ____lock_6;
+	RuntimeObject* ____lock_9;
 };
 
 // System.SByte
@@ -3150,13 +3150,13 @@ struct RuntimeTypeHandle_t332A452B8B6179E4469B69525D0FE82A88030F7B
 struct SystemRandomSource_t23E2BA98CFAB3CA24F6FE6DE3B83B132A44178E4  : public RandomSource_tAFDA2EA95D499ACEF522F573F562E4B4B9D02E1E
 {
 	// System.Random MathNet.Numerics.Random.SystemRandomSource::_random
-	Random_t79716069EDE67D1D7734F60AE402D0CA3FB6B4C8* ____random_7;
+	Random_t79716069EDE67D1D7734F60AE402D0CA3FB6B4C8* ____random_10;
 };
 
 struct SystemRandomSource_t23E2BA98CFAB3CA24F6FE6DE3B83B132A44178E4_StaticFields
 {
 	// System.Threading.ThreadLocal`1<MathNet.Numerics.Random.SystemRandomSource> MathNet.Numerics.Random.SystemRandomSource::DefaultInstance
-	ThreadLocal_1_tCDC272FFAAF66E27F8F3AE02CB0896A09D050D12* ___DefaultInstance_8;
+	ThreadLocal_1_tCDC272FFAAF66E27F8F3AE02CB0896A09D050D12* ___DefaultInstance_11;
 };
 
 // System.Globalization.TextInfo

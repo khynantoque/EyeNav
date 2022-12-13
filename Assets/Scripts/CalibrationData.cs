@@ -8,14 +8,11 @@ namespace Assets.Scripts
 {
     class CalibrationData
     {
-        //destination coordinates
-        public float dx = 0;
-        public float dy = 0;
-        public float dz = 0;
+        //location
+        public int selectedLocation = 2;
 
         //user coordinates
         public float ux = 0;
-        public float uy = 0;
         public float uz = 0;
     }
 }

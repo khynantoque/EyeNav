@@ -12,19 +12,12 @@ using UnscentedKalmanFilter;
 
 public class BLECalibration : MonoBehaviour
 {
-    [SerializeField] GameObject objUserDestination;
     [SerializeField] GameObject objUserPosition;
 
     [SerializeField] GameObject objBeacon1;
     [SerializeField] GameObject objBeacon2;
     [SerializeField] GameObject objBeacon3;
     [SerializeField] GameObject objBeacon4;
-
-    [SerializeField] Button btnStartNavigation;
-    [SerializeField] Button btnConfirmPosition;
-    [SerializeField] Button btnConfirmDestination;
-
-    [SerializeField] TMPro.TMP_Text txtWaitLabel;
 
     private double posBeacon1X;
     private double posBeacon1Y;
@@ -48,28 +41,11 @@ public class BLECalibration : MonoBehaviour
     private double frssi3 = -59;
     private double frssi4 = -59;
 
-    bool isConfirmedPosition = false;
-    bool isConfirmedDestination = false;
-
-    bool isConfirmPositionVisible = false;
-
-    int elipsisCounter = 0;
-
     AndroidJavaObject _pluginActivity;
 
     // Start is called before the first frame update
     void Start()
     {
-        CalibrationData loadedData = DataSaver.loadData<CalibrationData>("CalibrationData");
-        if (loadedData != null)
-        {
-            objUserDestination.transform.localPosition = new Vector3(loadedData.dx, loadedData.dy, loadedData.dz);
-        }
-
-        btnStartNavigation.gameObject.SetActive(false);
-        btnConfirmPosition.gameObject.SetActive(false);
-        btnConfirmDestination.gameObject.SetActive(false);
-
         _pluginActivity = new AndroidJavaObject("com.khynsoft.ble.PluginActivity");
 
         posBeacon1X = objBeacon1.transform.localPosition.x;
@@ -90,65 +66,23 @@ public class BLECalibration : MonoBehaviour
         _pluginActivity.Call("setPosBeacon4", posBeacon4X, posBeacon4Y);
 
         StartCoroutine(UpdateUserPosition());
-        StartCoroutine(CalibrateWaitIndicator());
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(isConfirmedDestination & isConfirmedPosition)
-        {
-            btnStartNavigation.gameObject.SetActive(true);
-        }
+
     }
 
     public void OnDestroy()
     {
         StopCoroutine(UpdateUserPosition());
-        StopCoroutine(CalibrateWaitIndicator());
     }
-
-    int counter = 10;
-    IEnumerator CalibrateWaitIndicator()
-    {
-        string dot = "";
-        for (int x = 0; x < elipsisCounter; x++)
-        {
-            dot += ".";
-        }
-        if (elipsisCounter == 3)
-        {
-            elipsisCounter = 0;
-        }
-        else
-        {
-            elipsisCounter++;
-        }
-        if (counter > 0)
-        {
-            txtWaitLabel.text = "Calibrating your position"+ dot + "\nPlease wait for "+ counter +"s or more.";
-            counter--;
-        } else
-        {
-            txtWaitLabel.text = "Your position should be calibrated.\nAwaiting positions' confirmation" + dot;
-            if (!isConfirmPositionVisible)
-            {
-                btnConfirmPosition.gameObject.SetActive(true);
-                isConfirmPositionVisible = true;
-            }
-        }
-        yield return new WaitForSecondsRealtime(1f);
-        StartCoroutine(CalibrateWaitIndicator());
-    }
-
     IEnumerator UpdateUserPosition()
     {
         RefreshFilteredRssi();
 
-        if(!isConfirmedPosition)
-        {
-            SetUserPosition();
-        }
+        SetUserPosition();
 
         yield return new WaitForSecondsRealtime(.5f);
         StartCoroutine(UpdateUserPosition());
@@ -181,42 +115,6 @@ public class BLECalibration : MonoBehaviour
         uLocation = _pluginActivity.Call<double[]>("getUserPosition");
 
         Vector3 newPos = new Vector3((float)uLocation[0], 0, (float)uLocation[1]);
-        objUserPosition.transform.localPosition = Vector3.Lerp(objUserPosition.transform.position, newPos, 1);
-        
+        objUserPosition.transform.position = Vector3.Lerp(objUserPosition.transform.position, newPos, 1);
     }
-
-    public void BackToMenu()
-    {
-        SceneManager.LoadScene("Menu");
-    }
-
-    public void GoARNavigate()
-    {
-        SceneManager.LoadScene("Navigation");
-
-        CalibrationData data = new CalibrationData();
-        data.dx = objUserDestination.transform.position.x;
-        data.dy = objUserDestination.transform.position.y;
-        data.dz = objUserDestination.transform.position.z;
-
-        data.ux = objUserDestination.transform.position.x;
-        data.uy = objUserDestination.transform.position.y;
-        data.uz = objUserDestination.transform.position.z;
-
-        DataSaver.saveData(data, "CalibrationData");
-    }
-
-    public void ConfirmPosition()
-    {
-        isConfirmedPosition = true;
-        btnConfirmPosition.gameObject.SetActive(false);
-        btnConfirmDestination.gameObject.SetActive(true);
-    }
-
-    public void ConfirmDestination()
-    {
-        isConfirmedDestination = true;
-        btnConfirmDestination.gameObject.SetActive(false);
-    }
-
 }
