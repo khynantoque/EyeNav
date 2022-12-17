@@ -177,6 +177,14 @@ public class PluginActivity extends UnityPlayerActivity {
         }
     }
 
+    public void ShowShortToast(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    public void ShowLongToast(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+    }
+
     public void startScan() {
         if(btScanner != null) {
             AsyncTask.execute(() -> btScanner.startScan(filters, settings, leScanCallback));
@@ -229,8 +237,6 @@ public class PluginActivity extends UnityPlayerActivity {
     }
 
     public static double getDistance(double rssi, double txPower) {
-        if(rssi < -90) rssi = -90;
-
         double ratio;
         ratio = rssi / txPower;//from   ww  w. j a  va  2 s.c  o  m
         if (ratio < 1.0) {
@@ -238,7 +244,7 @@ public class PluginActivity extends UnityPlayerActivity {
         } else {
             double distance;
             //distance = (0.89976) * Math.pow(ratio, 7.7095) + 0.111;
-            distance = Math.pow(10, (-rssi + txPower) / (10 * 2));
+            distance = Math.pow(10, (-rssi + txPower) / (10 * 2.5));
             // if (distance < Threshold)
             return distance;
             // else

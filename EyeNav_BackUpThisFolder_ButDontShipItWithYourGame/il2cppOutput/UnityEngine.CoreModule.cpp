@@ -6832,6 +6832,8 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void GL_Viewport_Injected_m18D18FFCCD4FDD9418
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR int32_t SystemInfo_GetOperatingSystemFamily_mE40096D3196E10CC8940F79B729CA985D1CD4396 (const RuntimeMethod* method) ;
 // System.String UnityEngine.SystemInfo::GetDeviceModel()
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* SystemInfo_GetDeviceModel_m7CB048D4271ECB231CAD4D3E81F1388466D89C92 (const RuntimeMethod* method) ;
+// System.Boolean UnityEngine.SystemInfo::IsGyroAvailable()
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool SystemInfo_IsGyroAvailable_mA83AA55A31C4C839FB4CCE9664E90CCD34145A9B (const RuntimeMethod* method) ;
 // UnityEngine.Rendering.GraphicsDeviceType UnityEngine.SystemInfo::GetGraphicsDeviceType()
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR int32_t SystemInfo_GetGraphicsDeviceType_m29EE879A14408069BF84733F43B216D07374C612 (const RuntimeMethod* method) ;
 // System.Boolean UnityEngine.SystemInfo::GetGraphicsUVStartsAtTop()
@@ -24699,6 +24701,23 @@ IL_0009:
 		return L_1;
 	}
 }
+// System.Boolean UnityEngine.SystemInfo::get_supportsGyroscope()
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool SystemInfo_get_supportsGyroscope_m98477EC99D88396F076A93EF5C28A6129DC4E211 (const RuntimeMethod* method) 
+{
+	bool V_0 = false;
+	{
+		bool L_0;
+		L_0 = SystemInfo_IsGyroAvailable_mA83AA55A31C4C839FB4CCE9664E90CCD34145A9B(NULL);
+		V_0 = L_0;
+		goto IL_0009;
+	}
+
+IL_0009:
+	{
+		bool L_1 = V_0;
+		return L_1;
+	}
+}
 // UnityEngine.Rendering.GraphicsDeviceType UnityEngine.SystemInfo::get_graphicsDeviceType()
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR int32_t SystemInfo_get_graphicsDeviceType_m2D54A0B94D138727041B29B127D8837165686545 (const RuntimeMethod* method) 
 {
@@ -25091,6 +25110,16 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* SystemInfo_GetDeviceModel_m7CB048D4
 	if (!_il2cpp_icall_func)
 	_il2cpp_icall_func = (SystemInfo_GetDeviceModel_m7CB048D4271ECB231CAD4D3E81F1388466D89C92_ftn)il2cpp_codegen_resolve_icall ("UnityEngine.SystemInfo::GetDeviceModel()");
 	String_t* icallRetVal = _il2cpp_icall_func();
+	return icallRetVal;
+}
+// System.Boolean UnityEngine.SystemInfo::IsGyroAvailable()
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool SystemInfo_IsGyroAvailable_mA83AA55A31C4C839FB4CCE9664E90CCD34145A9B (const RuntimeMethod* method) 
+{
+	typedef bool (*SystemInfo_IsGyroAvailable_mA83AA55A31C4C839FB4CCE9664E90CCD34145A9B_ftn) ();
+	static SystemInfo_IsGyroAvailable_mA83AA55A31C4C839FB4CCE9664E90CCD34145A9B_ftn _il2cpp_icall_func;
+	if (!_il2cpp_icall_func)
+	_il2cpp_icall_func = (SystemInfo_IsGyroAvailable_mA83AA55A31C4C839FB4CCE9664E90CCD34145A9B_ftn)il2cpp_codegen_resolve_icall ("UnityEngine.SystemInfo::IsGyroAvailable()");
+	bool icallRetVal = _il2cpp_icall_func();
 	return icallRetVal;
 }
 // UnityEngine.Rendering.GraphicsDeviceType UnityEngine.SystemInfo::GetGraphicsDeviceType()

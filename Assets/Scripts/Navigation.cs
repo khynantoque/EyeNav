@@ -23,9 +23,16 @@ public class Navigation : MonoBehaviour
     private Player player;
     private long startNavTime;
 
+    private bool isNavigating = true;
+    private bool startTracking = false;
+
     // Start is called before the first frame update
     void Start()
     {
+        Input.compass.enabled = true;
+        Input.location.Start();
+        StartCoroutine(InitializeCompass());
+
         path = new NavMeshPath();
         line = transform.GetComponent<LineRenderer>();
 
@@ -63,7 +70,21 @@ public class Navigation : MonoBehaviour
 
     private void OnDestroy()
     {
+        if(isNavigating)
+        {
+            Player loadedPlayer = DataSaver.loadData<Player>("PlayerData");
+            if (loadedPlayer != null)
+            {
+                DataSaver.saveData(loadedPlayer, "PlayerData" + loadedPlayer.name);
+            }
+            DataSaver.deleteData("CalibrationData");
+        }
+    }
 
+    IEnumerator InitializeCompass()
+    {
+        yield return new WaitForSeconds(1f);
+        startTracking |= Input.compass.enabled;
     }
 
     public void SetCurrentNavigationTarget()
@@ -79,6 +100,7 @@ public class Navigation : MonoBehaviour
 
     public void BackToMenu()
     {
+        isNavigating = false;
         CalibrationData data = new CalibrationData();
 
         data.ux = sessionOrigin.transform.position.x;

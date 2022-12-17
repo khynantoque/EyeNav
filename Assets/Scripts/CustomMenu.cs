@@ -29,9 +29,8 @@ public class CustomMenu : MonoBehaviour
     public Sprite locBg4;
     public Sprite locBg5;
 
-    bool isNavigated = false;
-    bool deleteSaveData = true;
     int locID = 2;
+    bool loggedIn = false;
     string gender = "MALE";
 
     Player player = new Player();
@@ -45,15 +44,18 @@ public class CustomMenu : MonoBehaviour
         {
             locID = calibrationData.selectedLocation;
             splashManager = MenuManager.GetComponent<SplashScreenManager>();
-            isNavigated = true;
+            loggedIn = true;
             splashManager.disableSplashScreen = true;
             splashManager.enableLoginScreen = false;
             splashManager.enablePressAnyKeyScreen = false;
+            DataSaver.deleteData("CalibrationData");
         }
+
         Player playerData = DataSaver.loadData<Player>("PlayerData");
         if (playerData != null)
         {
             player = playerData;
+            DataSaver.deleteData("PlayerData");
         }
     }
 
@@ -68,20 +70,24 @@ public class CustomMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if((inpName.text != "" && inpCourse.text != "") && inpYear.text != "")
+        if(!loggedIn)
         {
-            login.gameObject.SetActive(true);
+            if ((inpName.text != "" && inpCourse.text != "") && inpYear.text != "")
+            {
+                login.gameObject.SetActive(true);
+            }
         }
     }
 
     private void OnDestroy()
     {
-        if(deleteSaveData)
-        {
-            DataSaver.deleteData("CalibrationData");
-            DataSaver.deleteData("PlayerData");
-            DataSaver.saveData(player, "PlayerData" + inpName.text);
-        } 
+        DataSaver.saveData(player, "PlayerData" + inpName.text);
+    }
+
+    public void Logout()
+    {
+        DataSaver.deleteData("CalibrationData");
+        DataSaver.deleteData("PlayerData");
     }
 
     int toNum(string text)
@@ -100,7 +106,6 @@ public class CustomMenu : MonoBehaviour
             gender = "FEMALE";
             genderTmp.text = gender;
         }
-        
     }
 
     public void Login()
@@ -112,13 +117,11 @@ public class CustomMenu : MonoBehaviour
         player.year = toNum(inpYear.text);
         player.gender = gender;
 
-        DataSaver.saveData(player, "PlayerData");
+        loggedIn = true;
     }
 
     public void Navigate()
     {
-        deleteSaveData = false;
-
         CalibrationData playerData = new CalibrationData();
 
         playerData.selectedLocation = locID;
@@ -127,6 +130,7 @@ public class CustomMenu : MonoBehaviour
         playerData.uz = userObject.transform.position.y;
 
         DataSaver.saveData(playerData, "CalibrationData");
+        DataSaver.saveData(player, "PlayerData");
         SceneManager.LoadScene("NavigationHUD");
     }
 
