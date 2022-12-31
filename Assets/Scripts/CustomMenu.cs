@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Video;
 
 public class CustomMenu : MonoBehaviour
 {
@@ -18,8 +19,7 @@ public class CustomMenu : MonoBehaviour
     public TMPro.TMP_Text genderTmp;
 
     public TMPro.TMP_InputField inpName;
-    public TMPro.TMP_InputField inpCourse;
-    public TMPro.TMP_InputField inpYear;
+    public TMPro.TMP_InputField inpAge;
 
     public Button login;
 
@@ -29,6 +29,12 @@ public class CustomMenu : MonoBehaviour
     public Sprite locBg4;
     public Sprite locBg5;
 
+    public VideoPlayer videoPlayer;
+    public VideoPlayer videoPlayerAgain;
+    public RawImage assistantImage;
+
+    public GameObject assistantAvatarObject;
+
     int locID = 2;
     bool loggedIn = false;
     string gender = "MALE";
@@ -36,10 +42,12 @@ public class CustomMenu : MonoBehaviour
     Player player = new Player();
 
     private SplashScreenManager splashManager;
+    CalibrationData calibrationData;
+    Player playerData;
 
     private void Awake()
     {
-        CalibrationData calibrationData = DataSaver.loadData<CalibrationData>("CalibrationData");
+        calibrationData = DataSaver.loadData<CalibrationData>("CalibrationData");
         if (calibrationData != null)
         {
             locID = calibrationData.selectedLocation;
@@ -51,7 +59,7 @@ public class CustomMenu : MonoBehaviour
             DataSaver.deleteData("CalibrationData");
         }
 
-        Player playerData = DataSaver.loadData<Player>("PlayerData");
+        playerData = DataSaver.loadData<Player>("PlayerData");
         if (playerData != null)
         {
             player = playerData;
@@ -64,7 +72,21 @@ public class CustomMenu : MonoBehaviour
     {
         login.gameObject.SetActive(false);
         profileName.text = player.name;
-        SetLocation(locID);
+        assistantAvatarObject.SetActive(false);
+        if (calibrationData != null)
+        {
+            userObject.transform.position = Vector3.zero;
+            if(player != null)
+            {
+                if(player.numberOfBackToMenu <= 1)
+                    StartCoroutine(ShowAssistant());
+            }
+            
+            SetLocation(calibrationData.selectedLocation);
+        } else
+        {
+            SetLocation(locID);
+        }
     }
 
     // Update is called once per frame
@@ -72,16 +94,87 @@ public class CustomMenu : MonoBehaviour
     {
         if(!loggedIn)
         {
-            if ((inpName.text != "" && inpCourse.text != "") && inpYear.text != "")
+            if (inpName.text != "" && inpAge.text != "")
             {
                 login.gameObject.SetActive(true);
             }
         }
+
+        if (!videoPlayer.isPlaying && calibrationData == null)
+        {
+            videoPlayer.Stop();
+            assistantAvatarObject.SetActive(false);
+        } 
+        if (calibrationData != null)
+        {
+            if (!videoPlayerAgain.isPlaying)
+            {
+                videoPlayerAgain.Stop();
+                assistantAvatarObject.SetActive(false);
+            }
+        }
+        
     }
 
     private void OnDestroy()
     {
-        DataSaver.saveData(player, "PlayerData" + inpName.text);
+        StopCoroutine(ShowAssistant());
+
+        if(calibrationData != null)
+        {
+            StopCoroutine(PlayAssistantAgain());
+        } else
+        {
+            StopCoroutine(PlayAssistantVideo());
+        }
+
+        DataSaver.saveData(player, "PlayerData" + player.name + player.age + player.gender);
+    }
+
+    public void StartVideoAssistant()
+    {
+        StartCoroutine(ShowAssistant());
+    }
+
+    IEnumerator ShowAssistant()
+    {
+        yield return new WaitForSecondsRealtime(3f);
+        assistantAvatarObject.SetActive(true);
+
+        if(calibrationData != null)
+        {
+            StartCoroutine(PlayAssistantAgain());
+        } else
+        {
+            StartCoroutine(PlayAssistantVideo());
+        }
+
+    }
+
+    IEnumerator PlayAssistantVideo()
+    {
+        videoPlayer.Prepare();
+        WaitForSecondsRealtime wait = new(1);
+        while (videoPlayer.isPrepared)
+        {
+            yield return wait;
+            break;
+        }
+        assistantImage.texture = videoPlayer.targetTexture;
+        videoPlayer.Play();
+    }
+
+    IEnumerator PlayAssistantAgain()
+    {
+        videoPlayerAgain.Prepare();
+        WaitForSecondsRealtime wait = new(1);
+        while (videoPlayerAgain.isPrepared)
+        {
+            yield return wait;
+            break;
+        }
+        assistantImage.texture = videoPlayerAgain.targetTexture;
+        videoPlayerAgain.Play();
     }
 
     public void Logout()
@@ -113,9 +206,8 @@ public class CustomMenu : MonoBehaviour
         profileName.text = inpName.text;
 
         player.name = inpName.text;
-        player.course = inpCourse.text;
-        player.year = toNum(inpYear.text);
-        player.gender = gender;
+        player.age = toNum(inpAge.text);
+        player.gender = genderTmp.text;
 
         loggedIn = true;
     }
@@ -131,7 +223,7 @@ public class CustomMenu : MonoBehaviour
 
         DataSaver.saveData(playerData, "CalibrationData");
         DataSaver.saveData(player, "PlayerData");
-        SceneManager.LoadScene("NavigationHUD");
+        SceneManager.LoadScene("LoadingScene");
     }
 
     public void SetLocation(int locID)

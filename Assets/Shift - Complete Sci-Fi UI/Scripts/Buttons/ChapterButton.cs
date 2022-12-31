@@ -21,8 +21,6 @@ namespace Michsky.UI.Shift
         Image backgroundImageObj;
         TextMeshProUGUI titleObj;
         TextMeshProUGUI descriptionObj;
-        Transform statusLocked;
-        Transform statusCompleted;
 
         public enum StatusItem
         {
@@ -42,30 +40,6 @@ namespace Michsky.UI.Shift
                 backgroundImageObj.sprite = backgroundImage;
                 titleObj.text = buttonTitle;
                 descriptionObj.text = buttonDescription;
-            }
-
-            if (enableStatus == true)
-            {
-                statusLocked = gameObject.transform.Find("Content/Texts/Status/Locked").GetComponent<Transform>();
-                statusCompleted = gameObject.transform.Find("Content/Texts/Status/Completed").GetComponent<Transform>();
-
-                if (statusItem == StatusItem.None)
-                {
-                    statusLocked.gameObject.SetActive(false);
-                    statusCompleted.gameObject.SetActive(false);
-                }
-
-                else if (statusItem == StatusItem.Locked)
-                {
-                    statusLocked.gameObject.SetActive(true);
-                    statusCompleted.gameObject.SetActive(false);
-                }
-
-                else if (statusItem == StatusItem.Completed)
-                {
-                    statusLocked.gameObject.SetActive(false);
-                    statusCompleted.gameObject.SetActive(true);
-                }
             }
         }
     }

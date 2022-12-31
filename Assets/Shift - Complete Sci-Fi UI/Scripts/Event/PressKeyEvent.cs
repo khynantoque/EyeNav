@@ -10,6 +10,7 @@ namespace Michsky.UI.Shift
         public KeyCode hotkey;
         public bool pressAnyKey;
         public bool invokeAtStart;
+        public bool isPermitted;
 
         [Header("Action")]
         [SerializeField]
@@ -17,13 +18,13 @@ namespace Michsky.UI.Shift
 
         void Start()
         {
-            if (invokeAtStart == true)
+            if (invokeAtStart == true && isPermitted == true)
                 pressAction.Invoke();
         }
 
         void Update()
         {
-            if (pressAnyKey == true)
+            if (pressAnyKey == true && isPermitted == true)
             {
                 if (Input.anyKeyDown)
                     pressAction.Invoke();

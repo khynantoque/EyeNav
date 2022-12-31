@@ -16,22 +16,25 @@ public class Navigation : MonoBehaviour
     Vector3 targetPosition = Vector3.zero;
 
     public int selectedLocation = 2;
+    public float positionThresDistance = 1.50f;
 
     private NavMeshPath path;
     private LineRenderer line;
 
+    public GameObject labelArrival;
+
     private Player player;
     private long startNavTime;
-
+    private long startTime;
     private bool isNavigating = true;
-    private bool startTracking = false;
+    private bool lineToggle = true;
 
     // Start is called before the first frame update
     void Start()
     {
+        startTime = TimeUtils.CurrentTimeMillis();
         Input.compass.enabled = true;
         Input.location.Start();
-        StartCoroutine(InitializeCompass());
 
         path = new NavMeshPath();
         line = transform.GetComponent<LineRenderer>();
@@ -58,33 +61,85 @@ public class Navigation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (targetPosition != Vector3.zero)
+        if ((targetPosition != Vector3.zero) && lineToggle)
         {
             NavMesh.CalculatePath(transform.position, targetPosition, NavMesh.AllAreas, path);
             line.positionCount = path.corners.Length;
             line.SetPositions(path.corners);
             line.enabled = true;
         }
-        
+
+        float distance = Vector3.Distance(transform.position, targetPosition);
+        if(distance < positionThresDistance)
+        {
+            labelArrival.SetActive(true);
+            lineToggle = false;
+            switch (selectedLocation)
+            {
+                case 1:
+                    if (player.navTimeA == 0)
+                    {
+                        player.navTimeA = TimeUtils.CurrentTimeMillis() - startNavTime;
+                    }
+                    break;
+                case 2:
+                    if (player.navTimeB == 0)
+                    {
+                        player.navTimeB = TimeUtils.CurrentTimeMillis() - startNavTime;
+                    }
+                    break;
+                case 3:
+                    if (player.navTimeC == 0)
+                    {
+                        player.navTimeC = TimeUtils.CurrentTimeMillis() - startNavTime;
+                    }
+                    break;
+                case 4:
+                    if (player.navTimeD == 0)
+                    {
+                        player.navTimeD = TimeUtils.CurrentTimeMillis() - startNavTime;
+                    }
+                    break;
+                case 5:
+                    if (player.navTimeExit == 0)
+                    {
+                        player.navTimeExit = TimeUtils.CurrentTimeMillis() - startNavTime;
+                    }
+                    break;
+            }
+        } else
+        {
+            lineToggle = true;
+            labelArrival.SetActive(false);
+        }
+
     }
 
     private void OnDestroy()
     {
+        
         if(isNavigating)
         {
-            Player loadedPlayer = DataSaver.loadData<Player>("PlayerData");
-            if (loadedPlayer != null)
+            if (player != null)
             {
-                DataSaver.saveData(loadedPlayer, "PlayerData" + loadedPlayer.name);
+                DataSaver.saveData(player, "PlayerData" + player.name + player.age + player.gender);
             }
             DataSaver.deleteData("CalibrationData");
         }
     }
 
-    IEnumerator InitializeCompass()
+    public void ChangeLocationTarget(int locationID)
     {
-        yield return new WaitForSeconds(1f);
-        startTracking |= Input.compass.enabled;
+        player.numberOfSwitchingNavs++;
+        startNavTime = TimeUtils.CurrentTimeMillis();
+
+        Destination currentDestination = locationObjects.Find(x => x.locationID.Equals(selectedLocation));
+        if (currentDestination != null)
+        {
+            currentDestination.PositionObject.SetActive(false);
+        }
+        selectedLocation = locationID;
+        SetCurrentNavigationTarget();
     }
 
     public void SetCurrentNavigationTarget()
@@ -100,6 +155,10 @@ public class Navigation : MonoBehaviour
 
     public void BackToMenu()
     {
+        player.numberOfBackToMenu += 1;
+        player.startTime = startTime;
+        player.stopTime = TimeUtils.CurrentTimeMillis();
+
         isNavigating = false;
         CalibrationData data = new CalibrationData();
 
@@ -108,8 +167,6 @@ public class Navigation : MonoBehaviour
 
         if(player != null)
         {
-            player.navigationTimeInSeconds = TimeUtils.CurrentTimeMillis() - startNavTime;
-            player.numberOfSwitchingNavs += 1;
             DataSaver.saveData(player, "PlayerData");
         }
         DataSaver.saveData(data, "CalibrationData");

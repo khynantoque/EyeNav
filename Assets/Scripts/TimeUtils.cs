@@ -14,6 +14,6 @@ namespace Assets.Scripts
         public static long CurrentTimeMillis()
         {
             return (long)(DateTime.UtcNow - Jan1st1970).TotalMilliseconds;
-        }
+        }                       
     }
 }
