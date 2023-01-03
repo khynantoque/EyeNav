@@ -210,6 +210,7 @@ public class CustomMenu : MonoBehaviour
         player.gender = genderTmp.text;
 
         loggedIn = true;
+        DataSaver.saveData(player, "PlayerData");
     }
 
     public void Navigate()

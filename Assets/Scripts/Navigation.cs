@@ -33,8 +33,6 @@ public class Navigation : MonoBehaviour
     void Start()
     {
         startTime = TimeUtils.CurrentTimeMillis();
-        Input.compass.enabled = true;
-        Input.location.Start();
 
         path = new NavMeshPath();
         line = transform.GetComponent<LineRenderer>();
@@ -117,14 +115,9 @@ public class Navigation : MonoBehaviour
 
     private void OnDestroy()
     {
-        
-        if(isNavigating)
+        if (player != null)
         {
-            if (player != null)
-            {
-                DataSaver.saveData(player, "PlayerData" + player.name + player.age + player.gender);
-            }
-            DataSaver.deleteData("CalibrationData");
+            DataSaver.saveData(player, "PlayerData" + player.name + player.age + player.gender);
         }
     }
 

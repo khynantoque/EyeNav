@@ -7,22 +7,18 @@ import android.bluetooth.BluetoothManager;
 import android.bluetooth.le.BluetoothLeScanner;
 import android.bluetooth.le.ScanCallback;
 import android.bluetooth.le.ScanFilter;
-import android.bluetooth.le.ScanRecord;
 import android.bluetooth.le.ScanResult;
 import android.bluetooth.le.ScanSettings;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.core.app.ActivityCompat;
 
 import com.khynsoft.ble.trilateration.NonLinearLeastSquaresSolver;
 import com.khynsoft.ble.trilateration.TrilaterationFunction;
@@ -48,6 +44,7 @@ public class PluginActivity extends UnityPlayerActivity {
 
     private boolean isScanningStarted = false;
 
+    // x y
     private final double[] posBeacon1 = new double[2];
     private final double[] posBeacon2 = new double[2];
     private final double[] posBeacon3 = new double[2];
@@ -114,7 +111,6 @@ public class PluginActivity extends UnityPlayerActivity {
         if(btScanner != null) {
             AsyncTask.execute(() -> btScanner.startScan(filters, settings, leScanCallback));
             isScanningStarted = true;
-            Toast.makeText(this, "Scanning...", Toast.LENGTH_SHORT).show();
         } else {
             requestBluetooth();
         }
@@ -285,12 +281,12 @@ public class PluginActivity extends UnityPlayerActivity {
         return 0;
     }
 
-    public double getSmoothDistance(int beaconNum) {
+    public double getRawDistance(int beaconNum) {
         switch(beaconNum) {
-            case 1: return getDistance(smoothRssi1.getMeanRSSI(), -59);
-            case 2: return getDistance(smoothRssi2.getMeanRSSI(), -59);
-            case 3: return getDistance(smoothRssi3.getMeanRSSI(), -59);
-            case 4: return getDistance(smoothRssi4.getMeanRSSI(), -59);
+            case 1: return getDistance(rssi1, -59);
+            case 2: return getDistance(rssi2, -59);
+            case 3: return getDistance(rssi3, -59);
+            case 4: return getDistance(rssi4, -59);
         }
         return 0.0;
     }
@@ -332,13 +328,13 @@ public class PluginActivity extends UnityPlayerActivity {
         return optimum.getPoint().toArray();
     }
 
-    public double[] getFilteredPosition() {
+    public double[] getRawPosition() {
         double[][] positions = new double[][] { posBeacon1, posBeacon2, posBeacon3, posBeacon4 };
         double[] distances = new double[] {
-                getSmoothDistance(1),
-                getSmoothDistance(2),
-                getSmoothDistance(3),
-                getSmoothDistance(4)
+                getRawDistance(1),
+                getRawDistance(2),
+                getRawDistance(3),
+                getRawDistance(4)
         };
         NonLinearLeastSquaresSolver solver = new NonLinearLeastSquaresSolver(new TrilaterationFunction(positions, distances), new LevenbergMarquardtOptimizer());
         LeastSquaresOptimizer.Optimum optimum = solver.solve();

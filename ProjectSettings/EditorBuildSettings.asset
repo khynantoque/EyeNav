@@ -5,15 +5,6 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/Menu.unity
-    guid: 0c68f6eed6dcab44aa62ef59689c645b
-  - enabled: 0
-    path: Assets/Scenes/MapCalibration.unity
-    guid: 16cd7d2992ffb104484fd2b15b0ec00d
-  - enabled: 0
-    path: Assets/Scenes/Navigation.unity
-    guid: 0b4ab7db0eca4e849a44a5afbf4c91df
   - enabled: 1
     path: Assets/Scenes/ModernUI/MainMenu.unity
     guid: 0953858bcfab19a47a0d6068c369f3cf
@@ -23,9 +14,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ModernUI/NavigationHUD.unity
     guid: 70482046a59fff645b63d4f1ca410813
-  - enabled: 0
-    path: Assets/Scenes/Tests/Compass.unity
-    guid: 9d104dcc0738a724fa42a9d8119e1edd
   m_configObjects:
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 8de485ea65766de48928967071ad2b5e, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: aba0a1553aeeaf044b75320a42e2c4dc, type: 2}

@@ -829,8 +829,6 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void LocationService_StartUpdatingLocation_m9
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void LocationService_Start_m5076FE201E96C086B0F9C2D8677DA69C98099F3D (LocationService_tF2F2720FE2C07562EBFD128889F9A99F4B41B1B2* __this, float ___desiredAccuracyInMeters0, float ___updateDistanceInMeters1, const RuntimeMethod* method) ;
 // UnityEngine.LocationService/HeadingInfo UnityEngine.LocationService::GetLastHeading()
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR HeadingInfo_tDE66705847BB57D5815F1D570980E7C306B513BC LocationService_GetLastHeading_m4ED66327647F8DA6CFCB895859CCDD5952276BEA (const RuntimeMethod* method) ;
-// System.Boolean UnityEngine.LocationService::IsHeadingUpdatesEnabled()
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool LocationService_IsHeadingUpdatesEnabled_mC0885519051CEF5C9387EDC7FCED32C774B5C873 (const RuntimeMethod* method) ;
 // System.Void UnityEngine.LocationService::SetHeadingUpdatesEnabled(System.Boolean)
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void LocationService_SetHeadingUpdatesEnabled_m77B8BAC72D790DF0B03CC97AA3CA1863F657B9A7 (bool ___value0, const RuntimeMethod* method) ;
 // UnityEngine.GameObject UnityEngine.CameraRaycastHelper::RaycastTry_Injected(UnityEngine.Camera,UnityEngine.Ray&,System.Single,System.Int32)
@@ -1495,16 +1493,6 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR HeadingInfo_tDE66705847BB57D5815F1D570980E7C3
 		return L_0;
 	}
 }
-// System.Boolean UnityEngine.LocationService::IsHeadingUpdatesEnabled()
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool LocationService_IsHeadingUpdatesEnabled_mC0885519051CEF5C9387EDC7FCED32C774B5C873 (const RuntimeMethod* method) 
-{
-	typedef bool (*LocationService_IsHeadingUpdatesEnabled_mC0885519051CEF5C9387EDC7FCED32C774B5C873_ftn) ();
-	static LocationService_IsHeadingUpdatesEnabled_mC0885519051CEF5C9387EDC7FCED32C774B5C873_ftn _il2cpp_icall_func;
-	if (!_il2cpp_icall_func)
-	_il2cpp_icall_func = (LocationService_IsHeadingUpdatesEnabled_mC0885519051CEF5C9387EDC7FCED32C774B5C873_ftn)il2cpp_codegen_resolve_icall ("UnityEngine.LocationService::IsHeadingUpdatesEnabled()");
-	bool icallRetVal = _il2cpp_icall_func();
-	return icallRetVal;
-}
 // System.Void UnityEngine.LocationService::SetHeadingUpdatesEnabled(System.Boolean)
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void LocationService_SetHeadingUpdatesEnabled_m77B8BAC72D790DF0B03CC97AA3CA1863F657B9A7 (bool ___value0, const RuntimeMethod* method) 
 {
@@ -1601,23 +1589,6 @@ IL_000e:
 	{
 		float L_2 = V_0;
 		return L_2;
-	}
-}
-// System.Boolean UnityEngine.Compass::get_enabled()
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool Compass_get_enabled_mA531BD367FE1E72DF6FCB3DBA21ECDDBFE3EBA56 (Compass_t161CD14062E71ED7324FE12ED003EE0877EE546F* __this, const RuntimeMethod* method) 
-{
-	bool V_0 = false;
-	{
-		bool L_0;
-		L_0 = LocationService_IsHeadingUpdatesEnabled_mC0885519051CEF5C9387EDC7FCED32C774B5C873(NULL);
-		V_0 = L_0;
-		goto IL_0009;
-	}
-
-IL_0009:
-	{
-		bool L_1 = V_0;
-		return L_1;
 	}
 }
 // System.Void UnityEngine.Compass::set_enabled(System.Boolean)
