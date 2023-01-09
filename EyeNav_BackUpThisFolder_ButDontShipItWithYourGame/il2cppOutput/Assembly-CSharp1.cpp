@@ -1120,28 +1120,22 @@ struct Player_t8694D2E37514DF80CBEA72A2F8614A9DE232AF96  : public RuntimeObject
 {
 	// System.String Assets.Scripts.Player::name
 	String_t* ___name_0;
-	// System.Int32 Assets.Scripts.Player::age
-	int32_t ___age_1;
-	// System.String Assets.Scripts.Player::gender
-	String_t* ___gender_2;
-	// System.Int64 Assets.Scripts.Player::startTime
-	int64_t ___startTime_3;
-	// System.Int64 Assets.Scripts.Player::stopTime
-	int64_t ___stopTime_4;
+	// System.Int64 Assets.Scripts.Player::navScreenTime
+	int64_t ___navScreenTime_1;
 	// System.Int64 Assets.Scripts.Player::navTimeA
-	int64_t ___navTimeA_5;
+	int64_t ___navTimeA_2;
 	// System.Int64 Assets.Scripts.Player::navTimeB
-	int64_t ___navTimeB_6;
+	int64_t ___navTimeB_3;
 	// System.Int64 Assets.Scripts.Player::navTimeC
-	int64_t ___navTimeC_7;
+	int64_t ___navTimeC_4;
 	// System.Int64 Assets.Scripts.Player::navTimeD
-	int64_t ___navTimeD_8;
+	int64_t ___navTimeD_5;
 	// System.Int64 Assets.Scripts.Player::navTimeExit
-	int64_t ___navTimeExit_9;
+	int64_t ___navTimeExit_6;
 	// System.Int32 Assets.Scripts.Player::numberOfSwitchingNavs
-	int32_t ___numberOfSwitchingNavs_10;
+	int32_t ___numberOfSwitchingNavs_7;
 	// System.Int32 Assets.Scripts.Player::numberOfBackToMenu
-	int32_t ___numberOfBackToMenu_11;
+	int32_t ___numberOfBackToMenu_8;
 };
 
 // System.String

@@ -1,6 +1,7 @@
 package com.khynsoft.ble;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothManager;
@@ -18,12 +19,10 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 
 import com.khynsoft.ble.trilateration.NonLinearLeastSquaresSolver;
 import com.khynsoft.ble.trilateration.TrilaterationFunction;
 import com.khynsoft.ble.vanillable.KalmanFilter;
-import com.khynsoft.ble.vanillable.RSSISmoother;
 
 import org.apache.commons.math3.fitting.leastsquares.LeastSquaresOptimizer;
 import org.apache.commons.math3.fitting.leastsquares.LevenbergMarquardtOptimizer;
@@ -57,11 +56,6 @@ public class PluginActivity extends UnityPlayerActivity {
     private ScanSettings settings;
     private List<ScanFilter> filters;
 
-    RSSISmoother smoothRssi1 = new RSSISmoother();
-    RSSISmoother smoothRssi2 = new RSSISmoother();
-    RSSISmoother smoothRssi3 = new RSSISmoother();
-    RSSISmoother smoothRssi4 = new RSSISmoother();
-
     KalmanFilter kf1 = new KalmanFilter(0.008, 0.1);
     KalmanFilter kf2 = new KalmanFilter(0.008, 0.1);
     KalmanFilter kf3 = new KalmanFilter(0.008, 0.1);
@@ -71,10 +65,6 @@ public class PluginActivity extends UnityPlayerActivity {
         super.onCreate(savedInstanceState);
         checkPerms();
         Toast.makeText(this, "Powered by Cor Jesu College", Toast.LENGTH_SHORT).show();
-//        scanner = BluetoothLeScannerCompat.getScanner();
-
-        //dependency
-//        startNordicScan();
 
         btManager = (BluetoothManager) getSystemService(BLUETOOTH_SERVICE);
         btAdapter = btManager.getAdapter();
@@ -185,7 +175,6 @@ public class PluginActivity extends UnityPlayerActivity {
         if(btScanner != null) {
             AsyncTask.execute(() -> btScanner.startScan(filters, settings, leScanCallback));
             isScanningStarted = true;
-            Toast.makeText(this, "Scanning...", Toast.LENGTH_SHORT).show();
         } else {
             requestBluetooth();
         }
@@ -259,16 +248,6 @@ public class PluginActivity extends UnityPlayerActivity {
     }
     public double getDistance4() {
         return getDistance(getFilteredRssi(4), -59);
-    }
-
-    public int getSmoothRssi(int beaconNum) {
-        switch(beaconNum) {
-            case 1: return smoothRssi1.getFilteredRssi(rssi1);
-            case 2: return smoothRssi2.getFilteredRssi(rssi2);
-            case 3: return smoothRssi3.getFilteredRssi(rssi3);
-            case 4: return smoothRssi4.getFilteredRssi(rssi4);
-        }
-        return 0;
     }
 
     public double getFilteredRssi(int beaconNum) {

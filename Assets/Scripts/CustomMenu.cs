@@ -37,7 +37,6 @@ public class CustomMenu : MonoBehaviour
 
     int locID = 2;
     bool loggedIn = false;
-    string gender = "MALE";
 
     Player player = new Player();
 
@@ -94,7 +93,7 @@ public class CustomMenu : MonoBehaviour
     {
         if(!loggedIn)
         {
-            if (inpName.text != "" && inpAge.text != "")
+            if (inpName.text != "")
             {
                 login.gameObject.SetActive(true);
             }
@@ -114,6 +113,22 @@ public class CustomMenu : MonoBehaviour
             }
         }
         
+        if(userObject.transform.position.x < -1.4f)
+        {
+            userObject.transform.position = new Vector3(-1.5f, 0, userObject.transform.position.z);
+        }
+        if (userObject.transform.position.x > 1.4f)
+        {
+            userObject.transform.position = new Vector3(1.5f, 0, userObject.transform.position.z);
+        }
+        if (userObject.transform.position.z < -1.4f)
+        {
+            userObject.transform.position = new Vector3(userObject.transform.position.x, 0, -1.5f);
+        }
+        if (userObject.transform.position.z > 1.4f)
+        {
+            userObject.transform.position = new Vector3(userObject.transform.position.x, 0, 1.5f);
+        }
     }
 
     private void OnDestroy()
@@ -128,7 +143,7 @@ public class CustomMenu : MonoBehaviour
             StopCoroutine(PlayAssistantVideo());
         }
 
-        DataSaver.saveData(player, "PlayerData" + player.name + player.age + player.gender);
+        DataSaver.saveData(player, "PlayerData_" + player.name);
     }
 
     public void StartVideoAssistant()
@@ -188,26 +203,11 @@ public class CustomMenu : MonoBehaviour
         return Regex.IsMatch(text, "^\\d+$") || Regex.IsMatch(text, "^\\d*\\.?\\d*$") ? int.Parse(text) : 0;
     }
 
-    public void switchGender(bool isMan)
-    {
-        if(isMan)
-        {
-            gender = "MALE";
-            genderTmp.text = gender;
-        } else
-        {
-            gender = "FEMALE";
-            genderTmp.text = gender;
-        }
-    }
-
     public void Login()
     {
         profileName.text = inpName.text;
 
         player.name = inpName.text;
-        player.age = toNum(inpAge.text);
-        player.gender = genderTmp.text;
 
         loggedIn = true;
         DataSaver.saveData(player, "PlayerData");

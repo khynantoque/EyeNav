@@ -99,7 +99,7 @@ public class BLECalibration : MonoBehaviour
         {
             Directory.CreateDirectory(Application.persistentDataPath + "/csv");
         }
-        using (StreamWriter streamWriter = new StreamWriter(Application.persistentDataPath + "/csv/datalog_" + player.name + player.age + player.gender +".csv"))
+        using (StreamWriter streamWriter = new StreamWriter(Application.persistentDataPath + "/csv/datalog_" + player.name +".csv"))
         {
             for(int i = 0; i < bleDataLogList.Count; i++)
             {

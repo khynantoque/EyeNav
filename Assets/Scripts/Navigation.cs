@@ -16,7 +16,7 @@ public class Navigation : MonoBehaviour
     Vector3 targetPosition = Vector3.zero;
 
     public int selectedLocation = 2;
-    public float positionThresDistance = 1.50f;
+    public float positionThresDistance = 2.2f;
 
     private NavMeshPath path;
     private LineRenderer line;
@@ -26,8 +26,6 @@ public class Navigation : MonoBehaviour
     private Player player;
     private long startNavTime;
     private long startTime;
-    private bool isNavigating = true;
-    private bool lineToggle = true;
 
     // Start is called before the first frame update
     void Start()
@@ -59,71 +57,97 @@ public class Navigation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if ((targetPosition != Vector3.zero) && lineToggle)
-        {
-            NavMesh.CalculatePath(transform.position, targetPosition, NavMesh.AllAreas, path);
-            line.positionCount = path.corners.Length;
-            line.SetPositions(path.corners);
-            line.enabled = true;
-        }
-
         float distance = Vector3.Distance(transform.position, targetPosition);
         if(distance < positionThresDistance)
         {
             labelArrival.SetActive(true);
-            lineToggle = false;
-            switch (selectedLocation)
-            {
-                case 1:
-                    if (player.navTimeA == 0)
-                    {
-                        player.navTimeA = TimeUtils.CurrentTimeMillis() - startNavTime;
-                    }
-                    break;
-                case 2:
-                    if (player.navTimeB == 0)
-                    {
-                        player.navTimeB = TimeUtils.CurrentTimeMillis() - startNavTime;
-                    }
-                    break;
-                case 3:
-                    if (player.navTimeC == 0)
-                    {
-                        player.navTimeC = TimeUtils.CurrentTimeMillis() - startNavTime;
-                    }
-                    break;
-                case 4:
-                    if (player.navTimeD == 0)
-                    {
-                        player.navTimeD = TimeUtils.CurrentTimeMillis() - startNavTime;
-                    }
-                    break;
-                case 5:
-                    if (player.navTimeExit == 0)
-                    {
-                        player.navTimeExit = TimeUtils.CurrentTimeMillis() - startNavTime;
-                    }
-                    break;
-            }
+            if(player != null)
+                switch (selectedLocation)
+                {
+                    case 1:
+                        if (player.navTimeA == 0)
+                        {
+                            player.navTimeA = TimeUtils.CurrentTimeMillis() - startNavTime;
+                        }
+                        break;
+                    case 2:
+                        if (player.navTimeB == 0)
+                        {
+                            player.navTimeB = TimeUtils.CurrentTimeMillis() - startNavTime;
+                        }
+                        break;
+                    case 3:
+                        if (player.navTimeC == 0)
+                        {
+                            player.navTimeC = TimeUtils.CurrentTimeMillis() - startNavTime;
+                        }
+                        break;
+                    case 4:
+                        if (player.navTimeD == 0)
+                        {
+                            player.navTimeD = TimeUtils.CurrentTimeMillis() - startNavTime;
+                        }
+                        break;
+                    case 5:
+                        if (player.navTimeExit == 0)
+                        {
+                            player.navTimeExit = TimeUtils.CurrentTimeMillis() - startNavTime;
+                        }
+                        break;
+                }
         } else
         {
-            lineToggle = true;
             labelArrival.SetActive(false);
         }
 
+        if (targetPosition != Vector3.zero)
+        {
+            NavMesh.CalculatePath(sessionOrigin.transform.position, targetPosition, NavMesh.AllAreas, path);
+            line.positionCount = path.corners.Length;
+            for (int i = 0; i < path.corners.Length; i++)
+            {
+                Vector3 corner = path.corners[i];
+                corner.y = -0.95f;
+                path.corners[i] = corner;
+            }
+            line.SetPositions(path.corners);
+            line.enabled = true;
+        }
+
+
+        //Position constraints
+
+        if (sessionOrigin.transform.position.x < -1.4f)
+        {
+            sessionOrigin.transform.position = new Vector3(-1.4f, sessionOrigin.transform.position.y, sessionOrigin.transform.position.z);
+        }
+        if (sessionOrigin.transform.position.x > 4.8f)
+        {
+            sessionOrigin.transform.position = new Vector3(4.8f, sessionOrigin.transform.position.y, sessionOrigin.transform.position.z);
+        }
+        if (sessionOrigin.transform.position.z < -1.4f)
+        {
+            sessionOrigin.transform.position = new Vector3(sessionOrigin.transform.position.x, sessionOrigin.transform.position.y, -1.4f);
+        }
+        if (sessionOrigin.transform.position.z > 7f)
+        {
+            sessionOrigin.transform.position = new Vector3(sessionOrigin.transform.position.x, sessionOrigin.transform.position.y, 7f);
+        }
+        sessionOrigin.transform.position = new Vector3(sessionOrigin.transform.position.x, 1, sessionOrigin.transform.position.z);
     }
 
     private void OnDestroy()
     {
         if (player != null)
         {
-            DataSaver.saveData(player, "PlayerData" + player.name + player.age + player.gender);
+            DataSaver.saveData(player, "PlayerData_" + player.name);
         }
     }
 
     public void ChangeLocationTarget(int locationID)
     {
-        player.numberOfSwitchingNavs++;
+        if (player != null) player.numberOfSwitchingNavs++;
+
         startNavTime = TimeUtils.CurrentTimeMillis();
 
         Destination currentDestination = locationObjects.Find(x => x.locationID.Equals(selectedLocation));
@@ -148,11 +172,6 @@ public class Navigation : MonoBehaviour
 
     public void BackToMenu()
     {
-        player.numberOfBackToMenu += 1;
-        player.startTime = startTime;
-        player.stopTime = TimeUtils.CurrentTimeMillis();
-
-        isNavigating = false;
         CalibrationData data = new CalibrationData();
 
         data.ux = sessionOrigin.transform.position.x;
@@ -160,8 +179,11 @@ public class Navigation : MonoBehaviour
 
         if(player != null)
         {
+            player.numberOfBackToMenu += 1;
+            player.navScreenTime = TimeUtils.CurrentTimeMillis() - startTime;
             DataSaver.saveData(player, "PlayerData");
         }
+
         DataSaver.saveData(data, "CalibrationData");
         SceneManager.LoadScene("MainMenu");
     }

@@ -9,11 +9,8 @@ namespace Assets.Scripts
     class Player
     {
         public string name = "Anonymous";
-        public int age;
-        public string gender;
 
-        public long startTime = 0;
-        public long stopTime = 0;
+        public long navScreenTime = 0;
         public long navTimeA = 0;
         public long navTimeB = 0;
         public long navTimeC = 0;
